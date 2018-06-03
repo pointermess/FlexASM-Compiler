@@ -20,6 +20,7 @@ enum FATokenType
     ttSize,
     ttLabel,
     ttJumpToLabel,
+    ttSectionKeyword,
     ttAlias,
 };
 

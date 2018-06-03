@@ -14,6 +14,8 @@ FATokenType FAToken::GetType(string TokenValue)
         return ttLabel;
     else if (token == "byte" || token == "word" || token == "dword")
         return ttSize;
+    else if (token == "section")
+        return ttSectionKeyword;
     else if (token == ",")
         return ttOperandSplitter;
     else if (token == "-")
@@ -29,6 +31,8 @@ FATokenType FAToken::GetType(string TokenValue)
         return ttConstHex;
     else if (token[0] == '@')
         return ttJumpToLabel;
+    else if (token[0] == '.')
+        return ttAlias;
     else if (token[0] == '%')
         return ttCompilerCommand;
     else if (token[0] == 0x27 && token[token.length() - 1] == 0x27)
