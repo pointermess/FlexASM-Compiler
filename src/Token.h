@@ -6,6 +6,7 @@ using namespace std;
 enum FATokenType
 {
 	ttUnknown,
+	ttCompilerCommand,
 	ttInstruction,
 	ttConstString,
 	ttConstDec,
@@ -19,15 +20,15 @@ enum FATokenType
 	ttSize,
 	ttLabel,
 	ttJumpToLabel,
-	ttAlias
+	ttAlias,
 };
 
 struct FAToken
 {
 public:
 	std::string Value;
-	int Position;
-	int Line;
+	unsigned int Position;
+	unsigned int Line;
 	FATokenType Type;
 
 	static FATokenType GetType(string TokenValue);
