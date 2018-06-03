@@ -1,11 +1,14 @@
 #include "stdafx.h"
 #include "Tokenizer.h"
 #include <iostream>
+#include "Utilities.h"
 
 
 FATokenizer::FATokenizer()
 {
+    // Initialize private variables
     FCurrentTokenIndex = 0;
+
     // specifying string char
     StringChar = 0x27;
 
@@ -51,7 +54,7 @@ bool FATokenizer::IsInRange()
     return FCurrentTokenIndex < Tokens.size();
 }
 
-void FATokenizer::Tokenize(string str, vector<FAToken>* output)
+void FATokenizer::Tokenize(string str)
 {
     unsigned int position = 0;
     unsigned int line = 0;
@@ -69,7 +72,7 @@ void FATokenizer::Tokenize(string str, vector<FAToken>* output)
     {
         currentCharIndex += 1;
 
-        // check if keeptogether (?)
+        // skip any chars from keeptogether
         if (keepTogether > 0)
         {
             keepTogether -= 1;
@@ -105,8 +108,8 @@ void FATokenizer::Tokenize(string str, vector<FAToken>* output)
             line += 1;
         }
 
-        bool isCurrentCharInStopChars = StopChars.find(currentChar) != StopChars.end();
-        bool isCurrentCharInIgnoreChars = IgnoreChars.find(currentChar) != IgnoreChars.end();
+        bool isCurrentCharInStopChars = in_set<char>(StopChars, currentChar);
+        bool isCurrentCharInIgnoreChars = in_set<char>(IgnoreChars, currentChar);
 
         // if current char is in StopChars set
         if (!isCurrentCharInStopChars)
@@ -124,6 +127,8 @@ void FATokenizer::Tokenize(string str, vector<FAToken>* output)
 
         if (currentChar == StringChar)
             inString = true;
+
+        // needs keep together stuff
     }
 }
 

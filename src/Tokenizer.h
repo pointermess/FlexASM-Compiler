@@ -29,6 +29,6 @@ public:
     void NextToken();
     bool IsInRange();
 
-    void Tokenize(string str, std::vector<FAToken> * output);
+    void Tokenize(string str);
 };
 
