@@ -5,15 +5,15 @@
 
 FATokenizer::FATokenizer()
 {
-	FCurrentTokenIndex = 0;
-	// specifying string char
-	StringChar = 0x27;
+    FCurrentTokenIndex = 0;
+    // specifying string char
+    StringChar = 0x27;
 
-	// specifying stop chars
-	StopChars = { ' ', ',', '[', ']', '+', '-', 10, 13, StringChar };
+    // specifying stop chars
+    StopChars = { ' ', ',', '[', ']', '+', '-', 10, 13, StringChar };
 
-	// specifying ignore chars
-	IgnoreChars = { ' ', 10, 13, StringChar };
+    // specifying ignore chars
+    IgnoreChars = { ' ', 10, 13, StringChar };
 }
 
 
@@ -23,107 +23,107 @@ FATokenizer::~FATokenizer()
 
 FAToken FATokenizer::GetCurrentToken()
 {
-	return Tokens[FCurrentTokenIndex];
+    return Tokens[FCurrentTokenIndex];
 }
 
 FAToken FATokenizer::GetNextToken(int add)
 {
-	return Tokens[FCurrentTokenIndex + add];
+    return Tokens[FCurrentTokenIndex + add];
 }
 
 int FATokenizer::GetTokenIndex()
 {
-	return FCurrentTokenIndex;
+    return FCurrentTokenIndex;
 }
 
 void FATokenizer::SetTokenIndex(int index)
 {
-	FCurrentTokenIndex = index;
+    FCurrentTokenIndex = index;
 }
 
 void FATokenizer::NextToken()
 {
-	FCurrentTokenIndex += 1;
+    FCurrentTokenIndex += 1;
 }
 
 bool FATokenizer::IsInRange()
 {
-	return FCurrentTokenIndex < Tokens.size();
+    return FCurrentTokenIndex < Tokens.size();
 }
 
 void FATokenizer::Tokenize(string str, vector<FAToken>* output)
 {
-	unsigned int position = 0;
-	unsigned int line = 0;
+    unsigned int position = 0;
+    unsigned int line = 0;
 
-	unsigned int keepTogether = 0;
+    unsigned int keepTogether = 0;
 
-	bool inString = false;
+    bool inString = false;
 
-	std::string buffer = "";
-
-
-	// loop through provided string
-	int currentCharIndex = -1;
-	for (char& currentChar : str)
-	{
-		currentCharIndex += 1;
-
-		// check if keeptogether (?)
-		if (keepTogether > 0)
-		{
-			keepTogether -= 1;
-			continue;
-		}
+    std::string buffer = "";
 
 
-		// check if in string
-		if (inString)
-		{
-			if (currentChar != StringChar) // check if string continues
-			{
-				buffer += currentChar;
-			}
-			else
-			{
-				buffer = StringChar + buffer + StringChar;
+    // loop through provided string
+    int currentCharIndex = -1;
+    for (char& currentChar : str)
+    {
+        currentCharIndex += 1;
 
-				Tokens.push_back({ buffer, position, line, FAToken::GetType(buffer) });
+        // check if keeptogether (?)
+        if (keepTogether > 0)
+        {
+            keepTogether -= 1;
+            continue;
+        }
 
-				buffer = "";
-				inString = false;
-			}
 
-			continue;
-		}
+        // check if in string
+        if (inString)
+        {
+            if (currentChar != StringChar) // check if string continues
+            {
+                buffer += currentChar;
+            }
+            else
+            {
+                buffer = StringChar + buffer + StringChar;
 
-		position += 1;
+                Tokens.push_back({ buffer, position, line, FAToken::GetType(buffer) });
 
-		if (currentChar == 0xA)
-		{
-			position = 0;
-			line += 1;
-		}
+                buffer = "";
+                inString = false;
+            }
 
-		bool isCurrentCharInStopChars = StopChars.find(currentChar) != StopChars.end();
-		bool isCurrentCharInIgnoreChars = IgnoreChars.find(currentChar) != IgnoreChars.end();
+            continue;
+        }
 
-		// if current char is in StopChars set
-		if (!isCurrentCharInStopChars)
-		{
-			buffer += currentChar;
-		}
+        position += 1;
 
-		if (((isCurrentCharInStopChars) ||
-			 (currentCharIndex == str.length() - 1)) &&
-			 (buffer != ""))
-		{
-			Tokens.push_back({ buffer, position, line, FAToken::GetType(buffer) });
-			buffer = "";
-		}
+        if (currentChar == 0xA)
+        {
+            position = 0;
+            line += 1;
+        }
 
-		if (currentChar == StringChar)
-			inString = true;
-	}
+        bool isCurrentCharInStopChars = StopChars.find(currentChar) != StopChars.end();
+        bool isCurrentCharInIgnoreChars = IgnoreChars.find(currentChar) != IgnoreChars.end();
+
+        // if current char is in StopChars set
+        if (!isCurrentCharInStopChars)
+        {
+            buffer += currentChar;
+        }
+
+        if (((isCurrentCharInStopChars) ||
+            (currentCharIndex == str.length() - 1)) &&
+            (buffer != ""))
+        {
+            Tokens.push_back({ buffer, position, line, FAToken::GetType(buffer) });
+            buffer = "";
+        }
+
+        if (currentChar == StringChar)
+            inString = true;
+    }
 }
 

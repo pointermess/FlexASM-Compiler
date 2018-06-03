@@ -4,13 +4,13 @@
 class FAPreprocessor
 {
 public:
-	char CommentChar;
+    char CommentChar;
 
-	FAPreprocessor();
-	~FAPreprocessor();
+    FAPreprocessor();
+    ~FAPreprocessor();
 
-	std::string RemoveComments(std::string input);
-	std::string IncludeFiles(std::string input, std::string filePath);
-	std::string Preprocess(std::string fileName);
+    std::string RemoveComments(std::string input);
+    std::string IncludeFiles(std::string input, std::string filePath);
+    std::string Preprocess(std::string fileName);
 };
 

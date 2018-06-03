@@ -8,27 +8,27 @@
 class FATokenizer
 {
 private:
-	int FCurrentTokenIndex;
+    int FCurrentTokenIndex;
 public:
-	FATokenizer();
-	~FATokenizer();
+    FATokenizer();
+    ~FATokenizer();
 
-	char StringChar;
-	std::set<char> StopChars;
-	std::set<char> IgnoreChars;
-	std::set<std::string> KeepTogether;
+    char StringChar;
+    std::set<char> StopChars;
+    std::set<char> IgnoreChars;
+    std::set<std::string> KeepTogether;
 
-	std::vector<FAToken> Tokens;
+    std::vector<FAToken> Tokens;
 
-	FAToken GetCurrentToken();
-	FAToken GetNextToken(int add = 1);
-	
-	int GetTokenIndex();
-	void SetTokenIndex(int index);
+    FAToken GetCurrentToken();
+    FAToken GetNextToken(int add = 1);
 
-	void NextToken();
-	bool IsInRange();
+    int GetTokenIndex();
+    void SetTokenIndex(int index);
 
-	void Tokenize(string str, std::vector<FAToken> * output);
+    void NextToken();
+    bool IsInRange();
+
+    void Tokenize(string str, std::vector<FAToken> * output);
 };
 

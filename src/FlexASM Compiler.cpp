@@ -12,19 +12,19 @@
 
 void CompileFile(std::string fileName)
 {
-	std::unique_ptr<FAPreprocessor> preprocessor = std::make_unique<FAPreprocessor>();
-	std::string sourceCode = preprocessor->Preprocess(fileName);
+    std::unique_ptr<FAPreprocessor> preprocessor = std::make_unique<FAPreprocessor>();
+    std::string sourceCode = preprocessor->Preprocess(fileName);
 
-	std::cout << sourceCode;
+    std::cout << sourceCode;
 
-	std::unique_ptr<FATokenizer> tokenizer = std::make_unique<FATokenizer>();
-	std::vector<FAToken> tokens;
+    std::unique_ptr<FATokenizer> tokenizer = std::make_unique<FATokenizer>();
+    std::vector<FAToken> tokens;
 }
 
 int main()
 {
-	CompileFile("D:/asm/last.txt");
-	getchar();
+    CompileFile("D:/asm/last.txt");
+    getchar();
     return 0;
 }
 
