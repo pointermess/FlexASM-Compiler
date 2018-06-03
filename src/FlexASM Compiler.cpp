@@ -2,23 +2,28 @@
 //
 
 #include "stdafx.h"
+
 #include <vector>
-#include "Tokenizer.h"
 #include <memory>
 #include <iostream>
 
-void CompileFile(std::string FileName)
+#include "Tokenizer.h"
+#include "Preprocessor.h"
+
+void CompileFile(std::string fileName)
 {
+	std::unique_ptr<FAPreprocessor> preprocessor = std::make_unique<FAPreprocessor>();
+	std::string sourceCode = preprocessor->Preprocess(fileName);
+
+	std::cout << sourceCode;
+
 	std::unique_ptr<FATokenizer> tokenizer = std::make_unique<FATokenizer>();
 	std::vector<FAToken> tokens;
-
-	tokenizer->Tokenize("test", &tokens);
-	std::cout << tokens[0].Value;
 }
 
 int main()
 {
-	CompileFile("asm test");
+	CompileFile("D:/asm/last.txt");
 	getchar();
     return 0;
 }
