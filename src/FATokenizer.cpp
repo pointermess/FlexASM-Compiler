@@ -130,7 +130,39 @@ void FATokenizer::Tokenize(string str)
         if (currentChar == StringChar)
             inString = true;
 
-        // needs keep together stuff
+        if (isCurrentCharInStopChars && !isCurrentCharInIgnoreChars)
+        {
+            /* Needs still do be ported right here*/
+
+            /* Delphi Code: (Author: Milos Stanojevic) */
+            /*
+            
+            if LCurrentChar in FKeepTogetherChars then
+            begin
+                for c := 0 to KeepTogether.Count-1 do
+                begin
+                    LKeepBuffer := Copy(AString, LCurrentCharIndex, Length(KeepTogether[c]));
+
+                    if LKeepBuffer = KeepTogether[c] then
+                    begin
+                        ATokens.Add(TFPFlexPascalToken.Create());
+                        ATokens.Last.Value := LKeepBuffer;
+                        ATokens.Last.Position :=  LPos - Length(LKeepBuffer);
+                        ATokens.Last.Line := LLine;
+                        ATokens.Last.TokenType := FlexPascalTokenType(LKeepBuffer);
+
+                        LKeepTogether := Length(KeepTogether[c])-1;
+                    end;
+                end;
+            end;
+
+            */
+            
+            if (keepTogether == 0)
+            {
+                Tokens.push_back({ std::string(1, currentChar), position, line, FAToken::GetType(std::string(1, currentChar)) });
+            }
+        }
     }
 }
 
