@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 #include <set>
-#include "Token.h"
+#include "FAToken.h"
 
 
 class FATokenizer

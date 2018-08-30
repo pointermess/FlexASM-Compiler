@@ -1,5 +1,6 @@
 #include "stdafx.h"
-#include "Types.h"
+
+#include "FATypes.h"
 
 void FAInitValidRegisters()
 {

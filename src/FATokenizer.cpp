@@ -1,7 +1,9 @@
 #include "stdafx.h"
-#include "Tokenizer.h"
 #include <iostream>
+
 #include "Utilities.h"
+
+#include "FATokenizer.h"
 
 
 FATokenizer::FATokenizer()

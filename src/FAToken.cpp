@@ -1,7 +1,9 @@
 #include "stdafx.h"
-#include "Token.h"
 #include <algorithm>
+
 #include "Utilities.h"
+
+#include "FAToken.h"
 
 FATokenType FAToken::GetType(string TokenValue)
 {

@@ -1,8 +1,9 @@
 #include "stdafx.h"
-#include "Utilities.h"
 #include <algorithm>
 #include <fstream>
 #include <streambuf>
+
+#include "Utilities.h"
 
 bool is_number(const std::string& s)
 {

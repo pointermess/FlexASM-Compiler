@@ -1,16 +1,19 @@
 #include "stdafx.h"
-#include "Preprocessor.h"
 #include <fstream>
 #include <streambuf>
 #include <memory>
 #include <iostream>
-#include "Tokenizer.h"
+
 #include "Utilities.h"
+
+#include "FATokenizer.h"
+#include "FAPreprocessor.h"
 
 
 FAPreprocessor::FAPreprocessor()
 {
     CommentChar = ';';
+    StringChar = 0x27;
 }
 
 
@@ -23,18 +26,31 @@ std::string FAPreprocessor::RemoveComments(std::string input)
     std::string result = "";
 
     bool inComment = false;
+    bool inString = false;
     for (char& currentChar : input)
     {
+        if (!inString && currentChar == StringChar)
+        {
+            inString = true;
+        }
+        else
+        {
+            if (inString && currentChar == StringChar)
+            {
+                inString = false;
+            }
+        }
+
         if (!inComment)
         {
-            if (currentChar != CommentChar)
+            if (currentChar == CommentChar && !inString)
             {
-                result += currentChar;
+                inComment = true;
                 continue;
             }
             else
             {
-                inComment = true;
+                result += currentChar;
                 continue;
             }
         }
@@ -52,6 +68,7 @@ std::string FAPreprocessor::IncludeFiles(std::string input, std::string filePath
 }
 
 
+///
 
 std::string FAPreprocessor::Preprocess(std::string fileName)
 {
@@ -60,12 +77,13 @@ std::string FAPreprocessor::Preprocess(std::string fileName)
 
     // load file into temp string
     std::string temp = read_file(fileName);
+
+    // preprocess (remove) comments
     temp = RemoveComments(temp);
 
     // tokenize
     std::unique_ptr<FATokenizer> tokenizer = std::make_unique<FATokenizer>();
-    std::vector<FAToken> tokens;
-    tokenizer->Tokenize(temp, &tokens);
+    tokenizer->Tokenize(temp);
 
     std::string includeStrigs = "";
     // parse through tokens and look for things to preprocess

@@ -5,6 +5,7 @@ class FAPreprocessor
 {
 public:
     char CommentChar;
+    char StringChar;
 
     FAPreprocessor();
     ~FAPreprocessor();

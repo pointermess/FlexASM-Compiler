@@ -7,23 +7,28 @@
 #include <memory>
 #include <iostream>
 
-#include "Tokenizer.h"
-#include "Preprocessor.h"
+#include "FATokenizer.h"
+#include "FAPreprocessor.h"
 
 void CompileFile(std::string fileName)
 {
     std::unique_ptr<FAPreprocessor> preprocessor = std::make_unique<FAPreprocessor>();
     std::string sourceCode = preprocessor->Preprocess(fileName);
 
-    std::cout << sourceCode;
 
     std::unique_ptr<FATokenizer> tokenizer = std::make_unique<FATokenizer>();
-    std::vector<FAToken> tokens;
+    tokenizer->Tokenize(sourceCode);
+
+
+    for (FAToken & token : tokenizer->Tokens)
+    {
+        std::cout << token.Type << ": " << token.Value << std::endl;
+    }
 }
 
 int main()
 {
-    CompileFile("D:/asm/last.txt");
+    CompileFile("D:/asm/cpp/main.txt");
     getchar();
     return 0;
 }

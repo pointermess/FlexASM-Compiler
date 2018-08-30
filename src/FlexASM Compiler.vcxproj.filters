@@ -13,6 +13,15 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Headerdateien\Parser">
+      <UniqueIdentifier>{74579d37-27d6-46e3-a9e8-80c3d79263c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Generator">
+      <UniqueIdentifier>{1866f6ef-26aa-4abb-8e76-e67d4fe8fe68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Headerdateien\Representation">
+      <UniqueIdentifier>{18be00c4-f46f-4d0e-8e65-eed50a594ec0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -24,36 +33,60 @@
     <ClInclude Include="targetver.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="Tokenizer.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Token.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
-    <ClInclude Include="Preprocessor.h">
-      <Filter>Headerdateien</Filter>
-    </ClInclude>
     <ClInclude Include="Utilities.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
+    <ClInclude Include="FAPreprocessor.h">
+      <Filter>Headerdateien\Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="FAParser.h">
+      <Filter>Headerdateien\Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="FAProgram.h">
+      <Filter>Headerdateien\Representation</Filter>
+    </ClInclude>
+    <ClInclude Include="FAToken.h">
+      <Filter>Headerdateien\Representation</Filter>
+    </ClInclude>
+    <ClInclude Include="FATokenizer.h">
+      <Filter>Headerdateien\Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="FATypes.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="FAProgramInstructions.h">
+      <Filter>Headerdateien\Representation</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="FlexASM Compiler.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="Tokenizer.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Token.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="Preprocessor.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="Utilities.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="FATypes.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="FATokenizer.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="FAToken.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="FAProgram.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="FAPreprocessor.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="FAParser.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="FAProgramInstructions.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
