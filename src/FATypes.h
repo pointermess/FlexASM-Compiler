@@ -130,16 +130,26 @@ enum FAInstruction {
 
 };
 
+// Valid registers for the assembler
 struct FAValidRegister
 {
     std::string Name;
     FARegister Register;
 };
-
 std::vector<FAValidRegister> FAValidRegisters;
-
 void FAInitValidRegisters();
+bool IsValidRegister(std::string& string);
 
-bool IsValidRegister(std::string string);
+// Valid instructions for the assembler
+struct FAValidInstruction
+{
+    std::string Pattern;
+    FAInstruction Instruction;
+};
+std::vector<FAValidInstruction> FAValidInstructions;
+void FAInitValidInstructions();
+bool IsValidInstruction(std::string& pattern);
+
+
 
 

@@ -4,6 +4,7 @@
 #include "Utilities.h"
 
 #include "FAToken.h"
+#include "FATypes.h"
 
 FATokenType FAToken::GetType(string TokenValue)
 {
@@ -28,7 +29,8 @@ FATokenType FAToken::GetType(string TokenValue)
         return ttAddressCloser;
     else if (token == "-")
         return ttAddressOpener;
-    // tt register
+    else if (IsValidRegister(token))
+        return ttRegister;
     else if (token[0] == '0' && token[1] == 'x')
         return ttConstHex;
     else if (token[0] == '@')
