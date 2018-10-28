@@ -32,7 +32,7 @@ std::vector<uint8_t> FlexASM::ProgramDataVariable::GetOpcode()
 
 
 FlexASM::ProgramDataInitializedVariable::ProgramDataInitializedVariable(const std::string name, MemorySize size, std::vector<uint32_t>& data)
-    : ProgramDataVariable(name, size)
+    : ProgramDataVariable(name, size, 1)
 {
     Data = data;
     Length = data.size();
