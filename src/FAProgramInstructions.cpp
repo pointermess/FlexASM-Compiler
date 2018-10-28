@@ -1,2 +1,7 @@
 #include "stdafx.h"
-#include "FAProgramInstructions.h"
+#include "FAProgramInstruction.h"
+
+std::vector<char> FAProgramInstructionConstIntParameter::GetOpcode()
+{
+
+}
