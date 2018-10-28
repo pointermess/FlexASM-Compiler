@@ -4,13 +4,23 @@
 #include <string>
 
 #include "FAProgram.h"
+#include "FATokenizer.h"
 
-class FAParser
+namespace FlexASM
 {
-public:
-    FAParser();
-    ~FAParser();
+    class Parser
+    {
+    private:
+        void Parse(FATokenizerPtr tokenizer, FAProgramPtr program);
 
-    std::shared_ptr<FAProgram> ParseString(std::string & input);
-};
+
+        void ParseSection(FATokenizerPtr tokenizer, FAProgramPtr program);
+        void ParseProgram(FATokenizerPtr tokenizer, FAProgramPtr program);
+    public:
+        Parser();
+        ~Parser();
+
+        std::shared_ptr<Program> ParseFile(const std::string filePath);
+    };
+}
 
