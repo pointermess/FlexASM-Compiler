@@ -33,7 +33,7 @@ namespace FlexASM
 
         void Tokenize(std::string str);
     };
-    typedef std::shared_ptr<Tokenizer> FATokenizerPtr;
+    typedef std::shared_ptr<Tokenizer> TokenizerPtr;
 
 
 }
