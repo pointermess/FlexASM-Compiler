@@ -4,6 +4,7 @@
 
 std::vector<FlexASM::ValidRegisterStruct> FlexASM::ValidRegisters;
 std::vector<FlexASM::ValidInstructionStruct> FlexASM::ValidInstructions;
+std::vector<FlexASM::ValidInstructionStruct> FlexASM::ValidPseudoInstructions;
 
 void FlexASM::InitValidRegisters()
 {
@@ -39,6 +40,14 @@ bool FlexASM::IsValidRegister(const std::string string)
     return false;
 }
 
+bool FlexASM::IsValidPseudoInstruction(const std::string pattern)
+{
+    for (auto& validInstruction : ValidPseudoInstructions)
+        if (validInstruction.Pattern == pattern)
+            return true;
+    return false;
+}
+
 /*
 * FAInitValidInstructions
 *
@@ -47,6 +56,13 @@ bool FlexASM::IsValidRegister(const std::string string)
 void FlexASM::InitValidInstructions()
 {
     ValidInstructions.push_back({ "mov_const_const", faiMOV_REG_CONST });
+
+    ValidPseudoInstructions.push_back({ "db", fapiDB });
+    ValidPseudoInstructions.push_back({ "dw", fapiDW });
+    ValidPseudoInstructions.push_back({ "dd", fapiDD });
+    ValidPseudoInstructions.push_back({ "resb", fapiRESB });
+    ValidPseudoInstructions.push_back({ "resw", fapiRESW });
+    ValidPseudoInstructions.push_back({ "resd", fapiRESD });
 }
 
 /*
@@ -63,10 +79,10 @@ bool FlexASM::IsValidInstruction(const std::string pattern)
 }
 
 /*
- * IsValidInstructionMnemonic
- *
- * Checks if the passed mnemonic is valid.
- */
+* IsValidInstructionMnemonic
+*
+* Checks if the passed mnemonic is valid.
+*/
 bool FlexASM::IsValidInstructionMnemonic(const std::string mnemonic)
 {
     for (auto& validInstruction : ValidInstructions)
