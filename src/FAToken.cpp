@@ -6,9 +6,9 @@
 #include "FAToken.h"
 #include "FATypes.h"
 
-FATokenType FAToken::GetType(string TokenValue)
+FlexASM::FATokenType FlexASM::FAToken::GetType(std::string TokenValue)
 {
-    string token = TokenValue;
+    std::string token = TokenValue;
 
     // set token to lowercase
     str_to_lower(token);
@@ -45,5 +45,5 @@ FATokenType FAToken::GetType(string TokenValue)
         return ttConstDec;
     // tt instruction
 
-    return FATokenType();
+    return ttUnknown;
 }
