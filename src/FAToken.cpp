@@ -6,7 +6,9 @@
 #include "FAToken.h"
 #include "FATypes.h"
 
-FlexASM::FATokenType FlexASM::FAToken::GetType(std::string TokenValue)
+using namespace FlexASM;
+
+FATokenType FlexASM::FAToken::GetType(std::string TokenValue)
 {
     std::string token = TokenValue;
 
@@ -34,9 +36,9 @@ FlexASM::FATokenType FlexASM::FAToken::GetType(std::string TokenValue)
     else if (token[0] == '0' && token[1] == 'x')
         return ttConstHex;
     else if (token[0] == '@')
-        return ttJumpToLabel;
+        return ttLabelAlias;
     else if (token[0] == '.')
-        return ttAlias;
+        return ttDataAlias;
     else if (token[0] == '%')
         return ttCompilerCommand;
     else if (token[0] == 0x27 && token[token.length() - 1] == 0x27)
