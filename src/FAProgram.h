@@ -19,7 +19,7 @@ namespace FlexASM
         Program();
         ~Program();
     };
-    typedef std::shared_ptr<Program> FAProgramPtr;
+    typedef std::shared_ptr<Program> ProgramPtr;
 
 }
 
