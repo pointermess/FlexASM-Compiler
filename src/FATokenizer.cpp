@@ -6,7 +6,7 @@
 #include "FATokenizer.h"
 
 
-FATokenizer::FATokenizer()
+FlexASM::Tokenizer::Tokenizer()
 {
     // Initialize private variables
     FCurrentTokenIndex = 0;
@@ -22,41 +22,41 @@ FATokenizer::FATokenizer()
 }
 
 
-FATokenizer::~FATokenizer()
+FlexASM::Tokenizer::~Tokenizer()
 {
 }
 
-FAToken FATokenizer::GetCurrentToken()
+FlexASM::FAToken FlexASM::Tokenizer::GetCurrentToken()
 {
     return Tokens[FCurrentTokenIndex];
 }
 
-FAToken FATokenizer::GetNextToken(int add)
+FlexASM::FAToken FlexASM::Tokenizer::GetNextToken(int add)
 {
     return Tokens[FCurrentTokenIndex + add];
 }
 
-int FATokenizer::GetTokenIndex()
+int FlexASM::Tokenizer::GetTokenIndex()
 {
     return FCurrentTokenIndex;
 }
 
-void FATokenizer::SetTokenIndex(int index)
+void FlexASM::Tokenizer::SetTokenIndex(int index)
 {
     FCurrentTokenIndex = index;
 }
 
-void FATokenizer::NextToken()
+void FlexASM::Tokenizer::NextToken()
 {
     FCurrentTokenIndex += 1;
 }
 
-bool FATokenizer::IsInRange()
+bool FlexASM::Tokenizer::IsInRange()
 {
     return FCurrentTokenIndex < Tokens.size();
 }
 
-void FATokenizer::Tokenize(string str)
+void FlexASM::Tokenizer::Tokenize(std::string str)
 {
     unsigned int position = 0;
     unsigned int line = 0;

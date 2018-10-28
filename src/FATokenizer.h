@@ -1,34 +1,39 @@
 #pragma once
 #include <vector>
+#include <memory>
 #include <string>
 #include <set>
 #include "FAToken.h"
 
-
-class FATokenizer
+namespace FlexASM
 {
-private:
-    int FCurrentTokenIndex;
-public:
-    FATokenizer();
-    ~FATokenizer();
+    class Tokenizer
+    {
+    private:
+        int FCurrentTokenIndex;
+    public:
+        Tokenizer();
+        ~Tokenizer();
 
-    char StringChar;
-    std::set<char> StopChars;
-    std::set<char> IgnoreChars;
-    std::set<std::string> KeepTogether;
+        char StringChar;
+        std::set<char> StopChars;
+        std::set<char> IgnoreChars;
+        std::set<std::string> KeepTogether;
 
-    std::vector<FAToken> Tokens;
+        std::vector<FAToken> Tokens;
 
-    FAToken GetCurrentToken();
-    FAToken GetNextToken(int add = 1);
+        FAToken GetCurrentToken();
+        FAToken GetNextToken(int add = 1);
 
-    int GetTokenIndex();
-    void SetTokenIndex(int index);
+        int GetTokenIndex();
+        void SetTokenIndex(int index);
 
-    void NextToken();
-    bool IsInRange();
+        void NextToken();
+        bool IsInRange();
 
-    void Tokenize(string str);
-};
+        void Tokenize(std::string str);
+    };
+    typedef std::shared_ptr<Tokenizer> FATokenizerPtr;
 
+
+}
