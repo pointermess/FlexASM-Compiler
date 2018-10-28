@@ -5,10 +5,13 @@
 #include "FAPreprocessor.h"
 #include "FATypes.h"
 #include "FAExceptions.h"
+#include "FAProgramData.h"
 
 #include <iostream>
 
-void FlexASM::Parser::Parse(FATokenizerPtr tokenizer, FAProgramPtr program)
+using namespace FlexASM;
+
+void Parser::Parse(TokenizerPtr tokenizer, ProgramPtr program)
 {
     FAToken token = tokenizer->GetCurrentToken();
 
@@ -16,9 +19,13 @@ void FlexASM::Parser::Parse(FATokenizerPtr tokenizer, FAProgramPtr program)
     {
         ParseSection(tokenizer, program);
     }
+    else
+    {
+        throw ParserUnexpectedTokenException(token, "section");
+    }
 }
 
-void FlexASM::Parser::ParseSection(FATokenizerPtr tokenizer, FAProgramPtr program)
+void Parser::ParseSection(TokenizerPtr tokenizer, ProgramPtr program)
 {
     FAToken token = tokenizer->GetCurrentToken();
 
@@ -30,6 +37,7 @@ void FlexASM::Parser::ParseSection(FATokenizerPtr tokenizer, FAProgramPtr progra
         if (token.Value == ".data")
         {
             tokenizer->NextToken();
+            ParseDataSection(tokenizer, program);
         }
         else if (token.Value == ".text")
         {
@@ -42,56 +50,82 @@ void FlexASM::Parser::ParseSection(FATokenizerPtr tokenizer, FAProgramPtr progra
     }
 }
 
-void FlexASM::Parser::ParseProgram(FATokenizerPtr tokenizer, FAProgramPtr program)
+void Parser::ParseProgram(TokenizerPtr tokenizer, ProgramPtr program)
 {
-    try
+}
+
+void FlexASM::Parser::ParseDataSection(TokenizerPtr tokenizer, ProgramPtr program)
+{
+    while (tokenizer->GetCurrentToken().Type == ttLabel)
     {
-        while (tokenizer->IsInRange())
+        ParseDataSectionItem(tokenizer, program);
+    }
+}
+
+void FlexASM::Parser::ParseDataSectionItem(TokenizerPtr tokenizer, ProgramPtr program)
+{
+    FAToken token = tokenizer->GetCurrentToken();
+
+    if (token.Type == ttLabel)
+    {
+        // extract label name and check if it already exists
+        std::string labelName;
+        labelName.assign(token.Value, 0, token.Value.length() - 1);
+
+        uint32_t address = 0;
+        if (!program->Data->GetAddressOfVariable(labelName, address))
         {
-            FAToken token = tokenizer->GetCurrentToken();
+            // parse instruction
+            tokenizer->NextToken();
+            token = tokenizer->GetCurrentToken();
 
-            if (token.Type == ttSectionKeyword)
+            if (IsValidPseudoInstruction(token.Value))
             {
-                tokenizer->NextToken();
-                token = tokenizer->GetCurrentToken();
+                std::vector<uint32_t> data;
 
-                if (token.Value == ".data")
+
+                ProgramDataVariablePtr dataVariable = std::make_shared<ProgramDataInitializedVariable>("test", msUndefined, data);
+                // parse arguments
+                bool reachedEnd = false;
+
+                while (!reachedEnd)
                 {
                     tokenizer->NextToken();
+                    token = tokenizer->GetCurrentToken();
                 }
-                else if (token.Value == ".text")
-                {
-                    tokenizer->NextToken();
-                }
-                else
-                {
-                    throw ParserUnexpectedTokenException(token);
-                }
+
+                program->Data->Variables.push_back(dataVariable);
             }
-            else if (token.Type == ttAlias)
+            else
             {
-
+                throw ParserInvalidPseudoInstructionException(token, token.Value);
             }
         }
-    }
-    catch (ParserUnexpectedTokenException& e)
-    {
-        std::cout << e.GetMessage() << std::endl;
+        else
+        {
+            throw ParserIdentifierRedefinedException(token, labelName);
+        }
     }
 }
 
-FlexASM::Parser::Parser()
+
+Parser::Parser()
 {
 }
 
 
-FlexASM::Parser::~Parser()
+Parser::~Parser()
 {
 }
 
 
-
-std::shared_ptr<FlexASM::Program> FlexASM::Parser::ParseFile(const std::string filePath)
+/*
+ * ParseFile
+ *
+ * Public function is used to parse FlexASM code in a specific file using its path.
+ * This function calls private functions to generate an output representing the parsed program.
+ */
+ProgramPtr Parser::ParseFile(const std::string filePath)
 {
     // Preprocess file
     std::shared_ptr<Preprocessor> preprocessor = std::make_unique<Preprocessor>();
@@ -104,27 +138,14 @@ std::shared_ptr<FlexASM::Program> FlexASM::Parser::ParseFile(const std::string f
     // Parse tokens
     std::shared_ptr<Program> result = std::make_shared<Program>();
 
-    
-
-    /* 
-    
-    Print all tokens and its types for debugging purposes
-
-    */
-    for (FAToken & token : tokenizer->Tokens)
-    {
-        std::cout << token.Type << ": " << token.Value << std::endl;
-    }
-
     try
     {
-
+        Parse(tokenizer, result);
     }
-    catch (ParserUnexpectedTokenException& e)
+    catch (Exception& e)
     {
         std::cout << e.GetMessage() << std::endl;
     }
-
 
     return result;
 }

@@ -11,16 +11,17 @@ namespace FlexASM
     class Parser
     {
     private:
-        void Parse(FATokenizerPtr tokenizer, FAProgramPtr program);
+        void Parse(TokenizerPtr tokenizer, ProgramPtr program);
 
-
-        void ParseSection(FATokenizerPtr tokenizer, FAProgramPtr program);
-        void ParseProgram(FATokenizerPtr tokenizer, FAProgramPtr program);
+        void ParseSection(TokenizerPtr tokenizer, ProgramPtr program);
+        void ParseProgram(TokenizerPtr tokenizer, ProgramPtr program);
+        void ParseDataSection(TokenizerPtr tokenizer, ProgramPtr program);
+        void ParseDataSectionItem(TokenizerPtr tokenizer, ProgramPtr program);
     public:
         Parser();
         ~Parser();
 
-        std::shared_ptr<Program> ParseFile(const std::string filePath);
+        ProgramPtr ParseFile(const std::string filePath);
     };
 }
 
