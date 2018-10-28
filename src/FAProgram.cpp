@@ -3,11 +3,13 @@
 #include "FAProgram.h"
 
 
-FAProgram::FAProgram()
+FlexASM::Program::Program()
 {
+    Code = std::make_shared<ProgramCode>();
+    Data = std::make_shared<ProgramData>();
 }
 
 
-FAProgram::~FAProgram()
+FlexASM::Program::~Program()
 {
 }
