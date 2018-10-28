@@ -10,18 +10,18 @@
 #include "FAPreprocessor.h"
 
 
-FAPreprocessor::FAPreprocessor()
+FlexASM::Preprocessor::Preprocessor()
 {
     CommentChar = ';';
     StringChar = 0x27;
 }
 
 
-FAPreprocessor::~FAPreprocessor()
+FlexASM::Preprocessor::~Preprocessor()
 {
 }
 
-std::string FAPreprocessor::RemoveComments(std::string input)
+std::string FlexASM::Preprocessor::RemoveComments(std::string input)
 {
     std::string result = "";
 
@@ -62,7 +62,7 @@ std::string FAPreprocessor::RemoveComments(std::string input)
     return result;
 }
 
-std::string FAPreprocessor::IncludeFiles(std::string input, std::string filePath)
+std::string FlexASM::Preprocessor::IncludeFiles(std::string input, std::string filePath)
 {
     return std::string();
 }
@@ -70,7 +70,7 @@ std::string FAPreprocessor::IncludeFiles(std::string input, std::string filePath
 
 ///
 
-std::string FAPreprocessor::Preprocess(std::string fileName)
+std::string FlexASM::Preprocessor::Preprocess(std::string fileName)
 {
     // prepare result
     std::string result = "";
@@ -82,7 +82,7 @@ std::string FAPreprocessor::Preprocess(std::string fileName)
     temp = RemoveComments(temp);
 
     // tokenize
-    std::unique_ptr<FATokenizer> tokenizer = std::make_unique<FATokenizer>();
+    std::unique_ptr<Tokenizer> tokenizer = std::make_unique<Tokenizer>();
     tokenizer->Tokenize(temp);
 
     std::string includeStrigs = "";

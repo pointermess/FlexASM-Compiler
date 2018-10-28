@@ -1,17 +1,20 @@
 #pragma once
 #include <string>
 
-class FAPreprocessor
+namespace FlexASM
 {
-public:
-    char CommentChar;
-    char StringChar;
+    class Preprocessor
+    {
+    public:
+        char CommentChar;
+        char StringChar;
 
-    FAPreprocessor();
-    ~FAPreprocessor();
+        Preprocessor();
+        ~Preprocessor();
 
-    std::string RemoveComments(std::string input);
-    std::string IncludeFiles(std::string input, std::string filePath);
-    std::string Preprocess(std::string fileName);
-};
+        std::string RemoveComments(std::string input);
+        std::string IncludeFiles(std::string input, std::string filePath);
+        std::string Preprocess(std::string fileName);
+    };
 
+}
