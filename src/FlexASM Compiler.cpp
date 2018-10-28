@@ -9,26 +9,22 @@
 
 #include "FATokenizer.h"
 #include "FAPreprocessor.h"
-
-void CompileFile(std::string fileName)
-{
-    std::unique_ptr<FAPreprocessor> preprocessor = std::make_unique<FAPreprocessor>();
-    std::string sourceCode = preprocessor->Preprocess(fileName);
+#include "FATypes.h"
 
 
-    std::unique_ptr<FATokenizer> tokenizer = std::make_unique<FATokenizer>();
-    tokenizer->Tokenize(sourceCode);
+#include "FAParser.h"
 
+#include "FAProgramData.h"
+#include "FAProgramCode.h"
 
-    for (FAToken & token : tokenizer->Tokens)
-    {
-        std::cout << token.Type << ": " << token.Value << std::endl;
-    }
-}
 
 int main()
 {
-    CompileFile("D:/asm/cpp/main.txt");
+    FlexASM::InitValidRegisters();
+    
+    auto parser = std::make_unique<FlexASM::Parser>();
+    parser->ParseFile("D:/asm/cpp/main.txt");
+    
     getchar();
     return 0;
 }
