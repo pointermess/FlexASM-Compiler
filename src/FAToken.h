@@ -20,9 +20,9 @@ namespace FlexASM
         ttOperandSplitter,
         ttSize,
         ttLabel,
-        ttJumpToLabel,
+        ttLabelAlias,
         ttSectionKeyword,
-        ttAlias,
+        ttDataAlias,
     };
 
     struct FAToken
