@@ -81,10 +81,19 @@ void FlexASM::Parser::ParseDataSectionItem(TokenizerPtr tokenizer, ProgramPtr pr
 
             if (IsValidPseudoInstruction(token.Value))
             {
+				Instruction instruction = PseudoInstruction(token.Value);
+				MemorySize operationSize = PseudoInstructionOperationSize(instruction);
+
                 std::vector<uint32_t> data;
 
+				// define variable to be parsed
+                ProgramDataVariablePtr dataVariable;
 
-                ProgramDataVariablePtr dataVariable = std::make_shared<ProgramDataInitializedVariable>("test", msUndefined, data);
+				if (IsPseudoInstructionReservation(instruction))
+					dataVariable = std::make_shared<ProgramDataVariable>(labelName, operationSize, 0);
+				else
+					dataVariable = std::make_shared<ProgramDataInitializedVariable>(labelName, operationSize, 0);
+
                 // parse arguments
                 bool reachedEnd = false;
 
@@ -92,6 +101,16 @@ void FlexASM::Parser::ParseDataSectionItem(TokenizerPtr tokenizer, ProgramPtr pr
                 {
                     tokenizer->NextToken();
                     token = tokenizer->GetCurrentToken();
+
+					if (token.Type == ttConstDec)
+					{
+
+					}
+					if (token.Type == tt)
+					else
+					{
+						throw ParserUnexpectedTokenException(token);
+					}
                 }
 
                 program->Data->Variables.push_back(dataVariable);
