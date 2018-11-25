@@ -174,6 +174,9 @@ namespace FlexASM {
 
     extern std::vector<ValidInstructionStruct> ValidPseudoInstructions;
     bool IsValidPseudoInstruction(const std::string pattern);
+	MemorySize PseudoInstructionOperationSize(Instruction pseudoInstruction);
+	bool IsPseudoInstructionReservation(Instruction pseudoInstruction);
+	Instruction PseudoInstruction(const std::string pseudoInstructionStr);
 
     void InitValidInstructions();
 } // namespace FlexASM
