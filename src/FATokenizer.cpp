@@ -51,6 +51,11 @@ void FlexASM::Tokenizer::NextToken()
     FCurrentTokenIndex += 1;
 }
 
+void FlexASM::Tokenizer::PreviousToken()
+{
+	FCurrentTokenIndex -= 1;
+}
+
 bool FlexASM::Tokenizer::IsInRange()
 {
     return FCurrentTokenIndex < Tokens.size();
