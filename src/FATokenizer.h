@@ -28,7 +28,8 @@ namespace FlexASM
         int GetTokenIndex();
         void SetTokenIndex(int index);
 
-        void NextToken();
+		void NextToken();
+		void PreviousToken();
         bool IsInRange();
 
         void Tokenize(std::string str);
