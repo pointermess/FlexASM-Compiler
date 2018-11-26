@@ -48,7 +48,7 @@ void Parser::ParseSection(TokenizerPtr tokenizer, ProgramPtr program)
         }
         else
         {
-            throw ParserUnexpectedTokenException(token);
+            throw ParserUnexpectedSectionException(token);
         }
     }
 }
@@ -152,6 +152,16 @@ void FlexASM::Parser::ParseDataSectionItem(TokenizerPtr tokenizer, ProgramPtr pr
 
 
 							data.push_back(tokenValue);
+						}
+						else if (token.Type == ttConstString)
+						{
+							std::string str;
+							str.assign(token.Value, 1, token.Value.length() - 2);
+
+							for (auto& c : str)
+							{
+								data.push_back((int)c);
+							}
 						}
 						else
 						{
