@@ -14,6 +14,11 @@ bool FlexASM::ProgramData::GetAddressOfVariable(const std::string name, uint32_t
 }
 
 
+uint32_t FlexASM::ProgramDataVariable::GetLength()
+{
+	return Length;
+}
+
 FlexASM::ProgramDataVariable::ProgramDataVariable(const std::string  name, MemorySize size, uint32_t length)
 {
     Length = length;
@@ -27,6 +32,8 @@ std::vector<uint8_t> FlexASM::ProgramDataVariable::GetOpcode()
     {
    
     }
+	std::vector<uint8_t> result;
+	return result;
 }
 
 
@@ -36,4 +43,9 @@ FlexASM::ProgramDataInitializedVariable::ProgramDataInitializedVariable(const st
 {
     Data = data;
     Length = data.size();
+}
+
+uint32_t FlexASM::ProgramDataInitializedVariable::GetLength()
+{
+	return Data.size();
 }
