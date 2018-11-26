@@ -48,3 +48,8 @@ std::string FlexASM::ParserInvalidPseudoInstructionException::GetMessage()
     return "[Error] (" + std::to_string(_token.Line) + ", " + std::to_string(_token.Position) + ") Pseudo-Instruction '" + _instructionName + "' is invalid.";
 
 }
+
+std::string FlexASM::ParserUnexpectedSectionException::GetMessage()
+{
+	return "[Error] (" + std::to_string(_token.Line) + ", " + std::to_string(_token.Position) + ") Unexpected section '" + _token.Value + "', expected '.data' or '.text'";
+}

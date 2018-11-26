@@ -19,16 +19,26 @@ namespace FlexASM
 
     };
 
-    class ParserUnexpectedTokenException : public Exception
-    {
-    private:
-        std::string _expected;
-    public:
-        ParserUnexpectedTokenException(FAToken token, const std::string expected);
-        ParserUnexpectedTokenException(FAToken token) : Exception(token) {};
+	class ParserUnexpectedTokenException : public Exception
+	{
+	private:
+		std::string _expected;
+	public:
+		ParserUnexpectedTokenException(FAToken token, const std::string expected);
+		ParserUnexpectedTokenException(FAToken token) : Exception(token) {};
 
-        std::string GetMessage();
-    };
+		std::string GetMessage();
+	};
+
+	class ParserUnexpectedSectionException : public Exception
+	{
+	private:
+		std::string _expected;
+	public:
+		ParserUnexpectedSectionException(FAToken token) : Exception(token) {};
+
+		std::string GetMessage();
+	};
 
     class ParserIdentifierRedefinedException : public Exception
     {
