@@ -1,5 +1,5 @@
 
-# FlexASM QuickStart Guide [Version 0.2.2]
+# FlexASM QuickStart Guide [Version 0.2.2a]
 ## Syntax
 ### Constant Values
 
@@ -92,6 +92,10 @@ section .data
     byteArray: db 4,204,20
     wordArray: dw 420,420,420
     intArray:  dd 0x42000,0x420
+    
+    ; strings can be mixed with db, dw and dd
+    strHelloWorld: 'Hello World', 0
+    strFourTwenty: '4', 0x32, '0', 0
 ```
 
 ***Note:** Every declaration, unless it's one with "res", has to be initalized with a default value.*
