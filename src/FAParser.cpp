@@ -13,16 +13,19 @@ using namespace FlexASM;
 
 void Parser::Parse(TokenizerPtr tokenizer, ProgramPtr program)
 {
-    FAToken token = tokenizer->GetCurrentToken();
+	while (tokenizer->IsInRange())
+	{
+		FAToken token = tokenizer->GetCurrentToken();
 
-    if (token.Type == ttSectionKeyword)
-    {
-        ParseSection(tokenizer, program);
-    }
-    else
-    {
-        throw ParserUnexpectedTokenException(token, "section");
-    }
+		if (token.Type == ttSectionKeyword)
+		{
+			ParseSection(tokenizer, program);
+		}
+		else
+		{
+			throw ParserUnexpectedTokenException(token, "section");
+		}
+	}
 }
 
 void Parser::ParseSection(TokenizerPtr tokenizer, ProgramPtr program)
@@ -62,6 +65,12 @@ void FlexASM::Parser::ParseDataSection(TokenizerPtr tokenizer, ProgramPtr progra
     }
 }
 
+/*
+ * ParseDataSectionItem
+ *
+ * Parses an item inside the data section.
+ * It handles both, initialized and uninitialized, types of items.
+ */
 void FlexASM::Parser::ParseDataSectionItem(TokenizerPtr tokenizer, ProgramPtr program)
 {
     FAToken token = tokenizer->GetCurrentToken();
@@ -84,34 +93,81 @@ void FlexASM::Parser::ParseDataSectionItem(TokenizerPtr tokenizer, ProgramPtr pr
 				Instruction instruction = PseudoInstruction(token.Value);
 				MemorySize operationSize = PseudoInstructionOperationSize(instruction);
 
-                std::vector<uint32_t> data;
 
 				// define variable to be parsed
-                ProgramDataVariablePtr dataVariable;
+				ProgramDataVariablePtr dataVariable;
 
 				if (IsPseudoInstructionReservation(instruction))
+				{
+					// Parse uninitialized data (reservations)
+
 					dataVariable = std::make_shared<ProgramDataVariable>(labelName, operationSize, 0);
-				else
-					dataVariable = std::make_shared<ProgramDataInitializedVariable>(labelName, operationSize, 0);
 
-                // parse arguments
-                bool reachedEnd = false;
-
-                while (!reachedEnd)
-                {
-                    tokenizer->NextToken();
-                    token = tokenizer->GetCurrentToken();
+					tokenizer->NextToken();
+					token = tokenizer->GetCurrentToken();
 
 					if (token.Type == ttConstDec)
 					{
+						int tokenValue = std::stoi(token.Value);
 
+						if (tokenValue != 0)
+						{
+							dataVariable->Length = tokenValue;
+							tokenizer->NextToken();
+						}
+						else
+						{
+							throw ParserUnexpectedTokenException(token);
+						}
 					}
-					if (token.Type == tt)
-					else
+				}
+				else
+				{
+					// Parse initialized data
+
+					std::vector<uint32_t> data;
+					dataVariable = std::make_shared<ProgramDataInitializedVariable>(labelName, operationSize, data);
+					
+					// parse arguments
+					bool reachedEnd = false;
+
+					while (!reachedEnd)
 					{
-						throw ParserUnexpectedTokenException(token);
+						tokenizer->NextToken();
+						token = tokenizer->GetCurrentToken();
+
+
+						// check argument and add if complient
+						if (token.Type == ttConstDec)
+						{
+							int tokenValue = std::stoi(token.Value);
+							
+							data.push_back(tokenValue);
+						}
+						else if (token.Type == ttConstHex)
+						{
+							std::string hex;
+							hex.assign(token.Value, 2, token.Value.length() - 2);
+							int tokenValue = std::stoi(hex, nullptr, 16);
+
+
+							data.push_back(tokenValue);
+						}
+						else
+						{
+							throw ParserUnexpectedTokenException(token);
+						}
+
+						// check if it was the lastt argument
+						tokenizer->NextToken();
+						token = tokenizer->GetCurrentToken();
+
+						if (token.Type != ttOperandSplitter)
+						{
+							reachedEnd = true;
+						}
 					}
-                }
+				}
 
                 program->Data->Variables.push_back(dataVariable);
             }
