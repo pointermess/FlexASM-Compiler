@@ -85,7 +85,7 @@ std::string FlexASM::Preprocessor::Preprocess(std::string fileName)
     std::unique_ptr<Tokenizer> tokenizer = std::make_unique<Tokenizer>();
     tokenizer->Tokenize(temp);
 
-    std::string includeStrigs = "";
+    std::string includeStrings = "";
     // parse through tokens and look for things to preprocess
     while (tokenizer->IsInRange())
     {
@@ -101,7 +101,7 @@ std::string FlexASM::Preprocessor::Preprocess(std::string fileName)
                     std::string filePath = nextToken.Value.substr(1, nextToken.Value.length() - 2);
                     std::string fileSource = Preprocess(filePath);
 
-                    includeStrigs += fileSource;
+                    includeStrings += fileSource;
                 }
                 tokenizer->NextToken();
             }
@@ -112,6 +112,6 @@ std::string FlexASM::Preprocessor::Preprocess(std::string fileName)
         }
         tokenizer->NextToken();
     }
-    result += includeStrigs;
+    result += includeStrings;
     return result;
 }
