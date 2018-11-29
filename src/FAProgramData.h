@@ -9,25 +9,31 @@
 
 namespace FlexASM
 {
+    class ProgramDataVariableInterface
+    {
+    public:
+        std::string Name;
+        MemorySize Size;
+        virtual uint32_t GetLength() = 0;
+    };
+    typedef std::shared_ptr<ProgramDataVariableInterface> ProgramDataVariableInterfacePtr;
     /*
     * ProgramDataInitializedVariable
     * A class used to reserve uninitialized space in memory.
     *
     * Can return the executable opcode.
     */
-    class ProgramDataVariable
+    class ProgramDataVariable : public ProgramDataVariableInterface
     {
     private:
     public:
-		std::string Name;
-		MemorySize Size;
-		uint32_t Length;
+        uint32_t Length;
 
-		uint32_t GetLength();
 
         ProgramDataVariable(const std::string name, MemorySize size, uint32_t length = 1);
 
-        std::vector<uint8_t> GetOpcode();
+        virtual uint32_t GetLength() override;
+        std::vector<uint8_t> GetOpcode() ;
     };
     typedef std::shared_ptr<ProgramDataVariable> ProgramDataVariablePtr;
 
@@ -37,13 +43,13 @@ namespace FlexASM
     *
     * Can return the executable opcode.
     */
-    class ProgramDataInitializedVariable : public ProgramDataVariable
+    class ProgramDataInitializedVariable : public ProgramDataVariableInterface
     {
     public:
         std::vector<uint32_t> Data;
         ProgramDataInitializedVariable(const std::string name, MemorySize size, std::vector<uint32_t>& data);
 
-		uint32_t GetLength();
+        uint32_t GetLength() override;
         std::vector<uint8_t> GetOpcode();
     };
     typedef std::shared_ptr<ProgramDataInitializedVariable> ProgramDataInitializedVariablePtr;
@@ -51,7 +57,7 @@ namespace FlexASM
     class ProgramData
     {
     public:
-        std::vector<ProgramDataVariablePtr> Variables;
+        std::vector<ProgramDataVariableInterfacePtr> Variables;
         bool GetAddressOfVariable(const std::string name, uint32_t& address);
     };
     typedef std::shared_ptr<ProgramData> ProgramDataPtr;
