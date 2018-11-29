@@ -12,7 +12,7 @@ namespace FlexASM
     {
     public:
         std::string Name;
-        std::vector<std::shared_ptr<FAProgramInstruction>> Instructions;
+        std::vector<std::shared_ptr<ProgramInstruction>> Instructions;
     };
     typedef std::shared_ptr<ProgramSection> ProgramSectionPtr;
 
