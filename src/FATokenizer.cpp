@@ -26,12 +26,12 @@ FlexASM::Tokenizer::~Tokenizer()
 {
 }
 
-FlexASM::FAToken FlexASM::Tokenizer::GetCurrentToken()
+FlexASM::Token FlexASM::Tokenizer::GetCurrentToken()
 {
     return Tokens[FCurrentTokenIndex];
 }
 
-FlexASM::FAToken FlexASM::Tokenizer::GetNextToken(int add)
+FlexASM::Token FlexASM::Tokenizer::GetNextToken(int add)
 {
     return Tokens[FCurrentTokenIndex + add];
 }
@@ -53,7 +53,7 @@ void FlexASM::Tokenizer::NextToken()
 
 void FlexASM::Tokenizer::PreviousToken()
 {
-	FCurrentTokenIndex -= 1;
+    FCurrentTokenIndex -= 1;
 }
 
 bool FlexASM::Tokenizer::IsInRange()
@@ -98,7 +98,7 @@ void FlexASM::Tokenizer::Tokenize(std::string str)
             {
                 buffer = StringChar + buffer + StringChar;
 
-                Tokens.push_back({ buffer, position, line, FAToken::GetType(buffer) });
+                Tokens.push_back({ buffer, position, line, Token::GetType(buffer) });
 
                 buffer = "";
                 inString = false;
@@ -128,7 +128,7 @@ void FlexASM::Tokenizer::Tokenize(std::string str)
             (currentCharIndex == str.length() - 1)) &&
             (buffer != ""))
         {
-            Tokens.push_back({ buffer, position, line, FAToken::GetType(buffer) });
+            Tokens.push_back({ buffer, position, line, Token::GetType(buffer) });
             buffer = "";
         }
 
@@ -141,7 +141,7 @@ void FlexASM::Tokenizer::Tokenize(std::string str)
 
             /* Delphi Code: (Author: Milos Stanojevic) */
             /*
-            
+
             if LCurrentChar in FKeepTogetherChars then
             begin
                 for c := 0 to KeepTogether.Count-1 do
@@ -162,10 +162,10 @@ void FlexASM::Tokenizer::Tokenize(std::string str)
             end;
 
             */
-            
+
             if (keepTogether == 0)
             {
-                Tokens.push_back({ std::string(1, currentChar), position, line, FAToken::GetType(std::string(1, currentChar)) });
+                Tokens.push_back({ std::string(1, currentChar), position, line, Token::GetType(std::string(1, currentChar)) });
             }
         }
     }

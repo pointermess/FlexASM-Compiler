@@ -2,7 +2,7 @@
 #include "FAExceptions.h"
 
 
-FlexASM::ParserUnexpectedTokenException::ParserUnexpectedTokenException(FAToken token, const std::string expected)
+FlexASM::ParserUnexpectedTokenException::ParserUnexpectedTokenException(Token token, const std::string expected)
     : Exception(token)
 {
     _expected = expected;
@@ -19,7 +19,7 @@ std::string FlexASM::ParserUnexpectedTokenException::GetMessage()
     return message + ".";
 }
 
-FlexASM::ParserIdentifierRedefinedException::ParserIdentifierRedefinedException(FAToken token, const std::string variableName)
+FlexASM::ParserIdentifierRedefinedException::ParserIdentifierRedefinedException(Token token, const std::string variableName)
     : Exception(token)
 {
     _token = token;
@@ -31,12 +31,12 @@ std::string FlexASM::ParserIdentifierRedefinedException::GetMessage()
     return "[Error] (" + std::to_string(_token.Line) + ", " + std::to_string(_token.Position) + ") Identifier '" + _variableName + "' already in use.";
 }
 
-FlexASM::Exception::Exception(FAToken token)
+FlexASM::Exception::Exception(Token token)
 {
     _token = token;
 }
 
-FlexASM::ParserInvalidPseudoInstructionException::ParserInvalidPseudoInstructionException(FAToken token, const std::string instructionName)
+FlexASM::ParserInvalidPseudoInstructionException::ParserInvalidPseudoInstructionException(Token token, const std::string instructionName)
     : Exception(token)
 {
     _token = token;
@@ -51,5 +51,5 @@ std::string FlexASM::ParserInvalidPseudoInstructionException::GetMessage()
 
 std::string FlexASM::ParserUnexpectedSectionException::GetMessage()
 {
-	return "[Error] (" + std::to_string(_token.Line) + ", " + std::to_string(_token.Position) + ") Unexpected section '" + _token.Value + "', expected '.data' or '.text'";
+    return "[Error] (" + std::to_string(_token.Line) + ", " + std::to_string(_token.Position) + ") Unexpected section '" + _token.Value + "', expected '.data' or '.text'";
 }

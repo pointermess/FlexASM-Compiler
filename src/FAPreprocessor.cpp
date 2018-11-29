@@ -89,12 +89,12 @@ std::string FlexASM::Preprocessor::Preprocess(std::string fileName)
     // parse through tokens and look for things to preprocess
     while (tokenizer->IsInRange())
     {
-        FAToken token = tokenizer->GetCurrentToken();
+        Token token = tokenizer->GetCurrentToken();
         if (token.Type == ttCompilerCommand)
         {
             if (token.Value == "%include")
             {
-                FAToken nextToken = tokenizer->GetNextToken();
+                Token nextToken = tokenizer->GetNextToken();
 
                 if (nextToken.Type == ttConstString)
                 {

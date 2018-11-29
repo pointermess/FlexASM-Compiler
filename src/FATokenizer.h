@@ -20,10 +20,10 @@ namespace FlexASM
         std::set<char> IgnoreChars;
         std::set<std::string> KeepTogether;
 
-        std::vector<FAToken> Tokens;
+        std::vector<Token> Tokens;
 
-        FAToken GetCurrentToken();
-        FAToken GetNextToken(int add = 1);
+        Token GetCurrentToken();
+        Token GetNextToken(int add = 1);
 
         int GetTokenIndex();
         void SetTokenIndex(int index);
