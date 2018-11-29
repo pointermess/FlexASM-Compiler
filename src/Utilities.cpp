@@ -23,3 +23,22 @@ std::string read_file(std::string fileName)
         std::istreambuf_iterator<char>());
     return result;
 }
+
+int parse_number(std::string number)
+{
+    if (number.length() > 2)
+    {
+        std::string prefix;
+        std::string value;
+        prefix.assign(number, 0, 2);
+        value.assign(number, 2, number.length() - 2);
+
+        if (prefix == "0x")
+            return std::stoi(value, nullptr, 16);
+        if (prefix == "0o")
+            return std::stoi(value, nullptr, 8);
+        if (prefix == "0b")
+            return std::stoi(value, nullptr, 2);
+    }
+    return std::stoi(number);
+}
