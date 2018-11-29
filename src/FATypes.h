@@ -151,6 +151,13 @@ namespace FlexASM {
 
     };
 
+    enum AddressOperation
+    {
+        aoUndefined,
+        aoAddition,
+        aoSubtraction
+    };
+
     // Valid registers for the assembler
     struct ValidRegisterStruct {
         std::string Name;
@@ -178,7 +185,12 @@ namespace FlexASM {
 	bool IsPseudoInstructionReservation(Instruction pseudoInstruction);
 	Instruction PseudoInstruction(const std::string pseudoInstructionStr);
 
+
     void InitValidInstructions();
+
+
+    MemorySize ParseMemorySize(const std::string string);
+    Register ParseRegister(const std::string string);
 } // namespace FlexASM
 
 

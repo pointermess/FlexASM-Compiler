@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 #include "FATypes.h"
+#include "Utilities.h"
 using namespace FlexASM;
 
 // Declare global variables
@@ -72,14 +73,14 @@ bool FlexASM::IsValidPseudoInstruction(const std::string pattern)
 */
 MemorySize FlexASM::PseudoInstructionOperationSize(Instruction pseudoInstruction)
 {
-	if ((char)pseudoInstruction >= 0x30 && (char)pseudoInstruction <= 0x34)
-		return msByte;
-	else if ((char)pseudoInstruction >= 0x35 && (char)pseudoInstruction <= 0x39)
-		return msWord;
-	else if ((char)pseudoInstruction >= 0x3A && (char)pseudoInstruction <= 0x3F)
-		return msDWord;
-	else
-		return msUndefined;
+    if ((char)pseudoInstruction >= 0x30 && (char)pseudoInstruction <= 0x34)
+        return msByte;
+    else if ((char)pseudoInstruction >= 0x35 && (char)pseudoInstruction <= 0x39)
+        return msWord;
+    else if ((char)pseudoInstruction >= 0x3A && (char)pseudoInstruction <= 0x3F)
+        return msDWord;
+    else
+        return msUndefined;
 }
 
 /*
@@ -89,17 +90,40 @@ MemorySize FlexASM::PseudoInstructionOperationSize(Instruction pseudoInstruction
 */
 void FlexASM::InitValidInstructions()
 {
-	//
-    ValidInstructions.push_back({ "mov_const_const", faiMOV_REG_CONST });
+    //
+    ValidInstructions.push_back({ "mov_reg_const", faiMOV_REG_CONST });
 
 
-	// Initialize all valid pseudo instuctions
+    // Initialize all valid pseudo instuctions
     ValidPseudoInstructions.push_back({ "db", fapiDB });
     ValidPseudoInstructions.push_back({ "dw", fapiDW });
     ValidPseudoInstructions.push_back({ "dd", fapiDD });
     ValidPseudoInstructions.push_back({ "resb", fapiRESB });
     ValidPseudoInstructions.push_back({ "resw", fapiRESW });
     ValidPseudoInstructions.push_back({ "resd", fapiRESD });
+}
+
+MemorySize FlexASM::ParseMemorySize(const std::string string)
+{
+    std::string lower = string;
+    str_to_lower(lower);
+
+    if (lower == "byte") return msByte;
+    if (lower == "word") return msWord;
+    if (lower == "dword") return msDWord;
+}
+
+Register FlexASM::ParseRegister(const std::string string)
+{
+    std::string lower = string;
+    str_to_lower(lower);
+
+    for (auto& reg : ValidRegisters)
+    {
+        if (lower == reg.Name)
+            return reg.Register;
+    }
+    return farUnknown;
 }
 
 /*
@@ -130,13 +154,13 @@ bool FlexASM::IsValidInstructionMnemonic(const std::string mnemonic)
 
 bool FlexASM::IsPseudoInstructionReservation(Instruction pseudoInstruction)
 {
-	return (pseudoInstruction == fapiRESB) || (pseudoInstruction == fapiRESW) || (pseudoInstruction == fapiRESD);
+    return (pseudoInstruction == fapiRESB) || (pseudoInstruction == fapiRESW) || (pseudoInstruction == fapiRESD);
 }
 
 Instruction FlexASM::PseudoInstruction(const std::string pseudoInstructionStr)
 {
-	for (auto& validInstruction : ValidPseudoInstructions)
-		if (validInstruction.Pattern == pseudoInstructionStr)
-			return validInstruction.Instruction;
-	return faiUnknown;
+    for (auto& validInstruction : ValidPseudoInstructions)
+        if (validInstruction.Pattern == pseudoInstructionStr)
+            return validInstruction.Instruction;
+    return faiUnknown;
 }
