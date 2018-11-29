@@ -14,9 +14,17 @@ namespace FlexASM
         void Parse(TokenizerPtr tokenizer, ProgramPtr program);
 
         void ParseSection(TokenizerPtr tokenizer, ProgramPtr program);
-        void ParseProgram(TokenizerPtr tokenizer, ProgramPtr program);
+
         void ParseDataSection(TokenizerPtr tokenizer, ProgramPtr program);
         void ParseDataSectionItem(TokenizerPtr tokenizer, ProgramPtr program);
+
+		void ParseTextSection(TokenizerPtr tokenizer, ProgramPtr program);
+		void ParseTextSectionSection(TokenizerPtr tokenizer, ProgramPtr program);
+		void ParseTextSectionSectionItem(TokenizerPtr tokenizer, ProgramPtr program, ProgramSectionPtr programSection);
+
+
+
+		void ParseProgram(TokenizerPtr tokenizer, ProgramPtr program);
     public:
         Parser();
         ~Parser();
