@@ -20,7 +20,14 @@ namespace FlexASM
 
 		void ParseTextSection(TokenizerPtr tokenizer, ProgramPtr program);
 		void ParseTextSectionSection(TokenizerPtr tokenizer, ProgramPtr program);
-		void ParseTextSectionSectionItem(TokenizerPtr tokenizer, ProgramPtr program, ProgramSectionPtr programSection);
+        void ParseTextSectionSectionItem(TokenizerPtr tokenizer, ProgramPtr program,
+            ProgramSectionPtr programSection);
+        void ParseTextSectionSectionItemConst(TokenizerPtr tokenizer, ProgramPtr program,
+            ProgramInstructionPtr programInstruction);
+        void ParseTextSectionSectionItemRegister(TokenizerPtr tokenizer, ProgramPtr program,
+            ProgramInstructionPtr programInstruction);
+        void ParseTextSectionSectionItemAddress(TokenizerPtr tokenizer, ProgramPtr program,
+            ProgramInstructionPtr programInstruction);
 
 
 
