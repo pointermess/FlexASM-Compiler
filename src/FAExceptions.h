@@ -19,26 +19,60 @@ namespace FlexASM
 
     };
 
-	class ParserUnexpectedTokenException : public Exception
-	{
-	private:
-		std::string _expected;
-	public:
-		ParserUnexpectedTokenException(Token token, const std::string expected);
-		ParserUnexpectedTokenException(Token token) : Exception(token) {};
+    class TokenizerEndOfFileException : public std::exception
+    {
+    public:
+        std::string GetMessage();
+    };
 
-		std::string GetMessage();
-	};
+    class ParserUnexpectedTokenException : public Exception
+    {
+    private:
+        std::string _expected;
+    public:
+        ParserUnexpectedTokenException(Token token, const std::string expected);
+        ParserUnexpectedTokenException(Token token) : Exception(token) {};
 
-	class ParserUnexpectedSectionException : public Exception
-	{
-	private:
-		std::string _expected;
-	public:
-		ParserUnexpectedSectionException(Token token) : Exception(token) {};
+        std::string GetMessage();
+    };
 
-		std::string GetMessage();
-	};
+    class ParserUnknownInstructionException : public Exception
+    {
+    private:
+        std::string _instruction;
+    public:
+        ParserUnknownInstructionException(const std::string instruction);
+
+        std::string GetMessage();
+    };
+
+    class ParserUnexpectedSectionException : public Exception
+    {
+    private:
+        std::string _expected;
+    public:
+        ParserUnexpectedSectionException(Token token) : Exception(token) {};
+
+        std::string GetMessage();
+    };
+
+    class ParserUnexpectedEndOfFile : public Exception
+    {
+    private:
+        std::string _lastToken;
+    public:
+        ParserUnexpectedEndOfFile(Token token) : Exception(token) {};
+
+        std::string GetMessage();
+    };
+
+    class ParserEndOfFileException : public Exception
+    {
+    public:
+        ParserEndOfFileException() : Exception({}) {};
+
+        std::string GetMessage();
+    };
 
     class ParserIdentifierRedefinedException : public Exception
     {

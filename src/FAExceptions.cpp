@@ -53,3 +53,29 @@ std::string FlexASM::ParserUnexpectedSectionException::GetMessage()
 {
     return "[Error] (" + std::to_string(_token.Line) + ", " + std::to_string(_token.Position) + ") Unexpected section '" + _token.Value + "', expected '.data' or '.text'";
 }
+
+std::string FlexASM::TokenizerEndOfFileException::GetMessage()
+{
+    return "End of file exception";
+}
+
+std::string FlexASM::ParserUnexpectedEndOfFile::GetMessage()
+{
+    return "Unexpected end of file after token: '"+_token.Value+"'";
+}
+
+std::string FlexASM::ParserEndOfFileException::GetMessage()
+{
+    return "Finished";
+}
+
+FlexASM::ParserUnknownInstructionException::ParserUnknownInstructionException(const std::string instruction)
+    : Exception({})
+{
+    _instruction = instruction;
+}
+
+std::string FlexASM::ParserUnknownInstructionException::GetMessage()
+{
+    return "Unknown instruction '" + _instruction + "'";
+}
