@@ -1,33 +1,71 @@
 #pragma once
 #include <vector>
 #include <memory>
+#include "FATypes.h"
+
+using namespace FlexASM;
 
 namespace FlexASM
 {
 
-    class FAProgramInstructionParameter
-    {
-        virtual std::vector<char> GetOpcode() = 0;
-    };
-    typedef  std::vector<std::shared_ptr<FAProgramInstructionParameter>> FAProgramInstructionParamterVector;
-
-    class FAProgramInstructionConstIntParameter : public FAProgramInstructionParameter
-    {
-
-    };
-
-    class FAProgramInstructionConstStrParameter : public FAProgramInstructionParameter
-    {
-
-    };
-
-    class FAProgramInstruction
+    class ProgramInstructionParameterInterface
     {
     public:
-        std::string Instruction;
-        FAProgramInstructionParamterVector Parameters;
+        MemorySize OperationSize;
+        virtual std::vector<char> GetOpcode() = 0;
+        virtual std::string GetPattern() = 0;
+    };
+    typedef  std::shared_ptr<ProgramInstructionParameterInterface> ProgramInstructionParameterInterfacePtr;
+
+    class ProgramInstructionConstIntParameter : public ProgramInstructionParameterInterface
+    {
+    public:
+        unsigned int Value;
+        std::vector<char> GetOpcode() override;
+        std::string GetPattern();
+    };
+    typedef std::shared_ptr< ProgramInstructionConstIntParameter> ProgramInstructionConstIntParameterPtr;
+
+    class ProgramInstructionConstStrParameter : public ProgramInstructionParameterInterface
+    {
+
+    };
+
+    class ProgramInstructionRegisterParameter : public ProgramInstructionParameterInterface
+    {
+    public:
+        Register Value;
+        std::vector<char> GetOpcode() override;
+        std::string GetPattern();
+    };
+    typedef std::shared_ptr< ProgramInstructionRegisterParameter> ProgramInstructionRegisterParameterPtr;
+
+
+    class ProgramInstructionAddressParameter : public ProgramInstructionParameterInterface
+    {
+    public:
+        Register OperandLeftRegister;
+        uint32_t OperandLeftConstant;
+
+        Register OperandRightRegister;
+        uint32_t OperandRightConstant;
+
+        AddressOperation Operation;
+
+        std::vector<char> GetOpcode() override;
+        std::string GetPattern();
+    };
+    typedef std::shared_ptr< ProgramInstructionRegisterParameter> ProgramInstructionRegisterParameterPtr;
+
+
+    class ProgramInstruction
+    {
+    public:
+        std::string InstructionStr;
+        std::vector<ProgramInstructionParameterInterfacePtr> Parameters;
 
         std::vector<char> GetOpcode();
+        const std::string BuildPattern();
     };
-    typedef  std::vector<std::shared_ptr<FAProgramInstruction>> FAProgramInstructionVector;
+    typedef  std::shared_ptr<ProgramInstruction> ProgramInstructionPtr;
 }
