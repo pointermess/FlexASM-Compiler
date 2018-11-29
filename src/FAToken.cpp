@@ -8,7 +8,7 @@
 
 using namespace FlexASM;
 
-FATokenType FlexASM::FAToken::GetType(std::string TokenValue)
+FATokenType FlexASM::Token::GetType(std::string TokenValue)
 {
     std::string token = TokenValue;
 
@@ -45,6 +45,17 @@ FATokenType FlexASM::FAToken::GetType(std::string TokenValue)
         return ttConstString;
     else if (is_number(token))
         return ttConstDec;
+    else
+    {
+        // check instruction
+        for (auto instruction : ValidInstructions)
+        {
+            std::string compareTo;
+            compareTo.assign(instruction.Pattern, 0, token.length());
+
+            if (compareTo == token) return ttInstruction;
+        }
+    }
     // tt instruction
 
     return ttUnknown;

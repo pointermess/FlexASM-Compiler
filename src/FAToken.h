@@ -25,7 +25,7 @@ namespace FlexASM
         ttDataAlias,
     };
 
-    struct FAToken
+    struct Token
     {
     public:
         std::string Value;
