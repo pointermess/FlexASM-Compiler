@@ -4,6 +4,7 @@
 #include "Utilities.h"
 
 #include "FATokenizer.h"
+#include "FAExceptions.h"
 
 
 FlexASM::Tokenizer::Tokenizer()
@@ -28,12 +29,28 @@ FlexASM::Tokenizer::~Tokenizer()
 
 FlexASM::Token FlexASM::Tokenizer::GetCurrentToken()
 {
-    return Tokens[FCurrentTokenIndex];
+    try
+    {
+        Token result = Tokens.at(FCurrentTokenIndex);
+        return result;
+    }
+    catch ( std::out_of_range e)
+    {
+        throw TokenizerEndOfFileException();
+    }
 }
 
 FlexASM::Token FlexASM::Tokenizer::GetNextToken(int add)
 {
-    return Tokens[FCurrentTokenIndex + add];
+    try
+    {
+        Token result = Tokens.at(FCurrentTokenIndex + add);
+        return result;
+    }
+    catch ( std::out_of_range e)
+    {
+        throw TokenizerEndOfFileException();
+    }
 }
 
 int FlexASM::Tokenizer::GetTokenIndex()
