@@ -19,3 +19,5 @@ inline bool in_set(std::set<T>& set, T value)
 {
     return set.find(value) != set.end();
 }
+
+int parse_number(std::string number);
