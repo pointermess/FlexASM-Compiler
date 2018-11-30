@@ -1,4 +1,4 @@
-# FlexApplication Excutable Binary Structure (Format Version 0x00)
+# FlexApplication Excutable Format (Version 0x00)
 
 This document describes the most recent version (FlexAssembler Compiler Version RC2) structure of a FlexApplication Binary Executable file.
 
