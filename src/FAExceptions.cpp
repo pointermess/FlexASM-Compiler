@@ -79,3 +79,14 @@ std::string FlexASM::ParserUnknownInstructionException::GetMessage()
 {
     return "Unknown instruction '" + _instruction + "'";
 }
+
+FlexASM::ParserUndeclaredIdentifierException::ParserUndeclaredIdentifierException(const std::string identifierName)
+    : Exception({})
+{
+    _name = identifierName;
+}
+
+std::string FlexASM::ParserUndeclaredIdentifierException::GetMessage()
+{
+    return "[Error] (" + std::to_string(_token.Line) + ", " + std::to_string(_token.Position) + ") Undeclared identifier '" + _name + "'.";
+}

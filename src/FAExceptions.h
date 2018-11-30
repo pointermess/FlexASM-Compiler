@@ -94,4 +94,16 @@ namespace FlexASM
         std::string GetMessage();
     };
 
+    class ParserUndeclaredIdentifierException : public Exception
+    {
+    private:
+        std::string _name;
+        std::string _instructionName;
+    public:
+        ParserUndeclaredIdentifierException(const std::string identifierName);
+        std::string GetMessage();
+    };
+
+    
+
 }
