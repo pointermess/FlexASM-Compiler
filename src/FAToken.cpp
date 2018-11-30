@@ -27,9 +27,9 @@ FATokenType FlexASM::Token::GetType(std::string TokenValue)
         return ttAddressSubtraction;
     else if (token == "+")
         return ttAddressAddition;
-    else if (token == "-")
+    else if (token == "]")
         return ttAddressCloser;
-    else if (token == "-")
+    else if (token == "[")
         return ttAddressOpener;
     else if (IsValidRegister(token))
         return ttRegister;
