@@ -13,7 +13,24 @@ FlexASM::ProgramSectionPtr FlexASM::ProgramCode::FindSection(std::string & name)
     return nullptr;
 }
 
-std::vector<uint8_t> FlexASM::ProgramCode::GetOpcode()
-{ 
-    return {};
+std::vector<char> FlexASM::ProgramCode::GetOpcode()
+{
+    std::vector<char> result = {};
+    for (auto& section : Sections)
+    {
+        std::vector<char> var = section->GetOpcode();
+        result.insert(result.end(), var.begin(), var.end());
+    }
+    return result;
+}
+
+std::vector<char> FlexASM::ProgramSection::GetOpcode()
+{
+    std::vector<char> result = {};
+    for (auto& instruction : Instructions)
+    {
+        std::vector<char> var = instruction->GetOpcode();
+        result.insert(result.end(), var.begin(), var.end());
+    }
+    return result;
 }
