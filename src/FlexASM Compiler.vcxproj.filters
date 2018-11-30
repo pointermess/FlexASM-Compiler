@@ -42,9 +42,6 @@
     <ClInclude Include="FAParser.h">
       <Filter>Headerdateien\Parser</Filter>
     </ClInclude>
-    <ClInclude Include="FAProgram.h">
-      <Filter>Headerdateien\Representation</Filter>
-    </ClInclude>
     <ClInclude Include="FAToken.h">
       <Filter>Headerdateien\Representation</Filter>
     </ClInclude>
@@ -54,8 +51,23 @@
     <ClInclude Include="FATypes.h">
       <Filter>Headerdateien</Filter>
     </ClInclude>
-    <ClInclude Include="FAProgramInstructions.h">
+    <ClInclude Include="FAProgram.h">
       <Filter>Headerdateien\Representation</Filter>
+    </ClInclude>
+    <ClInclude Include="FAProgramData.h">
+      <Filter>Headerdateien\Representation</Filter>
+    </ClInclude>
+    <ClInclude Include="FAProgramCode.h">
+      <Filter>Headerdateien\Representation</Filter>
+    </ClInclude>
+    <ClInclude Include="FAProgramInstruction.h">
+      <Filter>Headerdateien\Representation</Filter>
+    </ClInclude>
+    <ClInclude Include="FAExceptions.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
+    <ClInclude Include="FABinaryGenerator.h">
+      <Filter>Headerdateien\Generator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -77,16 +89,28 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="FAProgram.cpp">
-      <Filter>Quelldateien</Filter>
-    </ClCompile>
     <ClCompile Include="FAPreprocessor.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="FAParser.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
-    <ClCompile Include="FAProgramInstructions.cpp">
+    <ClCompile Include="FAProgram.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="FAProgramData.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="FAProgramCode.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="FAProgramInstruction.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="FAExceptions.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="FABinaryGenerator.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
