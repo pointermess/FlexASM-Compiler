@@ -151,11 +151,18 @@ namespace FlexASM {
 
     };
 
-    enum AddressOperation
+    enum OperationType
     {
-        aoUndefined,
-        aoAddition,
-        aoSubtraction
+        otUndefined = 0,
+        otAddition = 1,
+        otSubtraction = 2
+    };
+
+    enum OperandType
+    {
+        vtUndefined = 0,
+        vtConstantValue = 1,
+        vtRegister = 2
     };
 
     // Valid registers for the assembler
