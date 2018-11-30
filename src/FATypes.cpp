@@ -92,6 +92,8 @@ void FlexASM::InitValidInstructions()
 {
     //
     ValidInstructions.push_back({ "mov_reg_const", faiMOV_REG_CONST });
+    ValidInstructions.push_back({ "mov_reg_reg", faiMOV_REG_REG });
+    ValidInstructions.push_back({ "mov_reg_addr", faiMOV_REG_ADDR });
 
 
     // Initialize all valid pseudo instuctions
@@ -150,6 +152,14 @@ bool FlexASM::IsValidInstructionMnemonic(const std::string mnemonic)
         if (validInstruction.Pattern.substr(0, mnemonic.length() + 1) == mnemonic + "_")
             return true;
     return false;
+}
+
+Instruction FlexASM::GetInstructionByPattern(const std::string pattern)
+{
+    for (auto& validInstruction : ValidInstructions)
+        if (validInstruction.Pattern == pattern)
+            return validInstruction.Instruction;
+    return faiUnknown;
 }
 
 bool FlexASM::IsPseudoInstructionReservation(Instruction pseudoInstruction)

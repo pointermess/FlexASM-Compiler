@@ -185,6 +185,7 @@ namespace FlexASM {
     extern std::vector<ValidInstructionStruct> ValidInstructions;
     bool IsValidInstruction(const std::string pattern);
     bool IsValidInstructionMnemonic(const std::string mnemonic);
+    Instruction GetInstructionByPattern(const std::string pattern);
 
     extern std::vector<ValidInstructionStruct> ValidPseudoInstructions;
     bool IsValidPseudoInstruction(const std::string pattern);
