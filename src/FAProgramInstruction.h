@@ -50,12 +50,14 @@ namespace FlexASM
         Register OperandRightRegister;
         uint32_t OperandRightConstant;
 
-        AddressOperation Operation;
+        OperandType OperandLeft;
+        OperandType OperandRight;
+        OperationType Operation;
 
         std::vector<char> GetOpcode() override;
         std::string GetPattern();
     };
-    typedef std::shared_ptr< ProgramInstructionRegisterParameter> ProgramInstructionRegisterParameterPtr;
+    typedef std::shared_ptr< ProgramInstructionAddressParameter> ProgramInstructionAddressParameterPtr;
 
 
     class ProgramInstruction
