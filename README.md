@@ -9,4 +9,10 @@ The reasons for the complete rewrite are following:
 
 ### How to run?
 
+``flasm.exe INPUT_FILE_PATH``
+
+Compiles the input file into a FlexApplication Executable and saves it on the same path with the same name but a ``.fae`` file extension.
+
 ``flasm.exe INPUT_FILE_PATH OUTPUT_FILE_PATH``
+
+Compiles the input file into a FlexApplication Executable and saves it to the output file path.
