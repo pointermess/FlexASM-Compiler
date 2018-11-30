@@ -64,6 +64,7 @@ namespace FlexASM
     {
     public:
         std::string InstructionStr;
+        Instruction InstructionEnum;
         std::vector<ProgramInstructionParameterInterfacePtr> Parameters;
 
         std::vector<char> GetOpcode();

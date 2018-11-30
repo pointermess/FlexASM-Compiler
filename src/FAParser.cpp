@@ -334,6 +334,7 @@ void FlexASM::Parser::ParseTextSectionSectionItem(TokenizerPtr tokenizer, Progra
 
         if (IsValidInstruction(instruction->BuildPattern()))
         {
+            instruction->InstructionEnum = GetInstructionByPattern(instruction->BuildPattern());
             programSection->Instructions.push_back(instruction);
         }
         else

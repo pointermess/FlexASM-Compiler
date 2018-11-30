@@ -39,7 +39,7 @@ std::string FlexASM::ProgramInstructionRegisterParameter::GetPattern()
 
 std::vector<char> FlexASM::ProgramInstruction::GetOpcode()
 {
-    std::vector<char> result = {};
+    std::vector<char> result = { (char)InstructionEnum };
     for (auto& param : Parameters)
     {
         std::vector<char> var = param->GetOpcode();
