@@ -12,3 +12,8 @@ FlexASM::ProgramSectionPtr FlexASM::ProgramCode::FindSection(std::string & name)
             return section;
     return nullptr;
 }
+
+std::vector<uint8_t> FlexASM::ProgramCode::GetOpcode()
+{ 
+    return {};
+}
