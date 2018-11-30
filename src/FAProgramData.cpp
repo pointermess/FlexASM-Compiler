@@ -7,18 +7,18 @@ bool FlexASM::ProgramData::GetAddressOfVariable(const std::string name, uint32_t
     for (auto& variable : Variables)
     {
         if (variable->Name == name)
-            return address;
+            return true;
         address += (uint8_t)variable->Size * variable->GetLength();
     }
     return false;
 }
 
-std::vector<uint8_t> FlexASM::ProgramData::GetOpcode()
+std::vector<char> FlexASM::ProgramData::GetOpcode()
 {
-    std::vector<uint8_t> result = {};
+    std::vector<char> result = {};
     for (auto& variable : Variables)
     {
-        std::vector<uint8_t> var = variable->GetOpcode();
+        std::vector<char> var = variable->GetOpcode();
         result.insert(result.end(), var.begin(), var.end());
     }
     return result;
@@ -37,15 +37,15 @@ FlexASM::ProgramDataVariable::ProgramDataVariable(const std::string  name, Memor
     Name = name;
 }
 
-std::vector<uint8_t> FlexASM::ProgramDataVariable::GetOpcode()
+std::vector<char> FlexASM::ProgramDataVariable::GetOpcode()
 {
     auto length = GetLength();
     if (Size == msByte)
-        return { (uint8_t)fapiRESB, (uint8_t)(length >> 24), (uint8_t)(length >> 16), (uint8_t)(length >> 8), (uint8_t)length };
+        return { (char)fapiRESB, (char)(length >> 24), (char)(length >> 16), (char)(length >> 8), (char)length };
     if (Size == msWord)
-        return { (uint8_t)fapiRESW, (uint8_t)(length >> 24), (uint8_t)(length >> 16), (uint8_t)(length >> 8), (uint8_t)length };
+        return { (char)fapiRESW, (char)(length >> 24), (char)(length >> 16), (char)(length >> 8), (char)length };
     if (Size == msDWord)
-        return { (uint8_t)fapiRESD, (uint8_t)(length >> 24), (uint8_t)(length >> 16), (uint8_t)(length >> 8), (uint8_t)length };
+        return { (char)fapiRESD, (char)(length >> 24), (char)(length >> 16), (char)(length >> 8), (char)length };
 }
 
 
@@ -62,20 +62,20 @@ uint32_t FlexASM::ProgramDataInitializedVariable::GetLength()
 	return Data.size();
 }
 
-std::vector<uint8_t> FlexASM::ProgramDataInitializedVariable::GetOpcode()
+std::vector<char> FlexASM::ProgramDataInitializedVariable::GetOpcode()
 {
-    std::vector<uint8_t> result = {};
+    std::vector<char> result = {};
 
     auto length = GetLength();
     if (Size == msByte)
     {
-        result.push_back((uint8_t)fapiDB);
+        result.push_back((char)fapiDB);
         result.push_back((length >> 24));
         result.push_back((length >> 16));
         result.push_back((length >> 8));
         result.push_back((length));
 
-        for (uint8_t byte : Data)
+        for (char byte : Data)
         {
             result.push_back(byte);
         }

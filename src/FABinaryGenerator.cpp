@@ -11,23 +11,23 @@ FlexASM::FABinaryGenerator::~FABinaryGenerator()
 {
 }
 
-const std::vector<uint8_t> FlexASM::FABinaryGenerator::CreateBinaryStream(ProgramPtr program)
+const std::vector<char> FlexASM::FABinaryGenerator::CreateBinaryStream(ProgramPtr program)
 {
     // FileType Information
-    std::vector<uint8_t> result = { 'F', 'A', 'E', 0, 0 };
+    std::vector<char> result = { 'F', 'A', 'E', 0, 0 };
 
     // Get Data and Text Section Opcodes
-    std::vector<uint8_t> dataSection = program->Data->GetOpcode();
-    std::vector<uint8_t> textSection = program->Code->GetOpcode();
+    std::vector<char> dataSection = program->Data->GetOpcode();
+    std::vector<char> textSection = program->Code->GetOpcode();
 
     // Data Section Size
     uint32_t length = dataSection.size();
-    std::vector<uint8_t> size = { (uint8_t)(length >> 24), (uint8_t)(length >> 16), (uint8_t)(length >> 8), (uint8_t)length };
+    std::vector<char> size = { (char)(length >> 24), (char)(length >> 16), (char)(length >> 8), (char)length };
     result.insert(result.end(), size.begin(), size.end());
 
     // Text Section Size
     length = textSection.size();
-    size = { (uint8_t)(length >> 24), (uint8_t)(length >> 16), (uint8_t)(length >> 8), (uint8_t)length };
+    size = { (char)(length >> 24), (char)(length >> 16), (char)(length >> 8), (char)length };
     result.insert(result.end(), size.begin(), size.end());
 
     // Data Section

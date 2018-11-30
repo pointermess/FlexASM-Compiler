@@ -24,7 +24,7 @@ std::string read_file(std::string fileName)
     return result;
 }
 
-int parse_number(std::string number)
+uint32_t parse_number(std::string number)
 {
     if (number.length() > 2)
     {

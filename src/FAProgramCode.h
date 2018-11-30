@@ -13,6 +13,7 @@ namespace FlexASM
     public:
         std::string Name;
         std::vector<std::shared_ptr<ProgramInstruction>> Instructions;
+        std::vector<char> GetOpcode();
     };
     typedef std::shared_ptr<ProgramSection> ProgramSectionPtr;
 
@@ -23,7 +24,7 @@ namespace FlexASM
         std::vector<ProgramSectionPtr> Sections;
         void AddSection(ProgramSectionPtr sections);
         ProgramSectionPtr FindSection(std::string& name);
-        std::vector<uint8_t> GetOpcode();
+        std::vector<char> GetOpcode();
     };
     typedef std::shared_ptr<ProgramCode> ProgramCodePtr;
 }

@@ -10,7 +10,7 @@ namespace FlexASM
         FABinaryGenerator();
         ~FABinaryGenerator();
 
-        const std::vector<uint8_t> CreateBinaryStream(ProgramPtr program);
+        const std::vector<char> CreateBinaryStream(ProgramPtr program);
     };
 
 

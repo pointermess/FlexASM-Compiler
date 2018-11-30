@@ -29,12 +29,23 @@ std::vector<char> FlexASM::ProgramInstructionRegisterParameter::GetOpcode()
     if (opSize == msUndefined)
         opSize = msDWord;
 
-    return { 0 };
+    return { (char)Value };
 }
 
 std::string FlexASM::ProgramInstructionRegisterParameter::GetPattern()
 {
     return "reg";
+}
+
+std::vector<char> FlexASM::ProgramInstruction::GetOpcode()
+{
+    std::vector<char> result = {};
+    for (auto& param : Parameters)
+    {
+        std::vector<char> var = param->GetOpcode();
+        result.insert(result.end(), var.begin(), var.end());
+    }
+    return result;
 }
 
 const std::string FlexASM::ProgramInstruction::BuildPattern()
@@ -47,6 +58,24 @@ const std::string FlexASM::ProgramInstruction::BuildPattern()
     }
     
     return pattern;
+}
+
+std::vector<char> FlexASM::ProgramInstructionAddressParameter::GetOpcode()
+{
+    MemorySize opSize = OperationSize;
+
+    if (opSize == msUndefined)
+        opSize = msDWord;
+
+    char infoByte = (char)OperandLeft;
+    infoByte = (char)(infoByte << 2) + (char)Operation;
+    infoByte = (char)(infoByte << 3) + (char)OperandRight;
+
+    std::vector<char> result = { (char)opSize, infoByte };
+
+    // TODO: rest of it lel
+
+    return result;
 }
 
 std::string FlexASM::ProgramInstructionAddressParameter::GetPattern()
