@@ -312,22 +312,19 @@ void FlexASM::Parser::ParseTextSectionSectionItem(TokenizerPtr tokenizer, Progra
                 if (checkTokenType == ttConstDec || checkTokenType == ttConstHex || checkTokenType == ttDataAlias)
                 {
                     ParseTextSectionSectionItemConst(tokenizer, program, instruction);
-                    tokenizer->NextToken();
                 }
                 else if (checkTokenType == ttRegister)
                 {
                     ParseTextSectionSectionItemRegister(tokenizer, program, instruction);
-                    tokenizer->NextToken();
                 }
                 else if (checkTokenType == ttAddressOpener)
                 {
-                    tokenizer->NextToken();
                     ParseTextSectionSectionItemAddress(tokenizer, program, instruction);
-                    tokenizer->NextToken();
                 }
                 else
                 {
-                    reachedEnd = true;
+                    if (checkTokenType != ttOperandSplitter)
+                        reachedEnd = true;
                 }
             }
         }
@@ -373,6 +370,7 @@ void FlexASM::Parser::ParseTextSectionSectionItemConst(TokenizerPtr tokenizer, P
         if (program->Data->GetAddressOfVariable(aliasName, address))
         {
             param->Value = address;
+            programInstruction->Parameters.push_back(param);
         }
     }
 }
@@ -399,13 +397,120 @@ void FlexASM::Parser::ParseTextSectionSectionItemRegister(TokenizerPtr tokenizer
 void FlexASM::Parser::ParseTextSectionSectionItemAddress(TokenizerPtr tokenizer, ProgramPtr program, ProgramInstructionPtr programInstruction)
 {
     Token token = tokenizer->GetCurrentToken();
-    ProgramInstructionRegisterParameterPtr param = std::make_shared<ProgramInstructionRegisterParameter>();
+    ProgramInstructionAddressParameterPtr param = std::make_shared<ProgramInstructionAddressParameter>();
 
+    // check if operation size is defined
     if (token.Type == ttSize)
     {
         param->OperationSize = ParseMemorySize(token.Value);
         tokenizer->NextToken();
         token = tokenizer->GetCurrentToken();
+    }
+
+    // start parsing fun part
+    if (token.Type == ttAddressOpener)
+    {
+        tokenizer->NextToken();
+        token = tokenizer->GetCurrentToken();
+
+        // parse left operand
+        if (token.Type == ttConstDec || token.Type == ttConstHex)
+        {
+            param->OperandLeft = vtConstantValue;
+            param->OperandLeftConstant = parse_number(token.Value);
+        }
+        else if (token.Type == ttDataAlias)
+        {
+            param->OperandLeft = vtConstantValue;
+
+            uint32_t address;
+            std::string name = token.Value.substr(1, token.Value.length() - 1);
+            if (program->Data->GetAddressOfVariable(name, address))
+            {
+                param->OperandLeftConstant = address;
+            }
+            else
+            {
+                throw ParserUndeclaredIdentifierException(name);
+            }
+        }
+        else if (token.Type == ttRegister)
+        {
+            param->OperandLeft = vtRegister;    
+            param->OperandLeftRegister = ParseRegister(token.Value);
+        }
+        else
+        {
+            throw ParserUnexpectedTokenException(token, "register or constant value as left operand");
+        }
+
+        tokenizer->NextToken();
+        token = tokenizer->GetCurrentToken();
+
+        // check if there is an operation and a right operand
+        if (token.Type == ttAddressCloser)
+        {
+            // no right operand
+            programInstruction->Parameters.push_back(param); 
+        }
+        else if (token.Type == ttAddressAddition || token.Type == ttAddressSubtraction)
+        {
+            // get operation
+            OperationType operation = otAddition;
+            if (token.Type == ttAddressSubtraction) operation = otSubtraction;
+
+            param->Operation = operation;
+
+            tokenizer->NextToken();
+            token = tokenizer->GetCurrentToken();
+
+            if (token.Type == ttConstDec || token.Type == ttConstHex)
+            {
+                param->OperandRight = vtConstantValue;
+                param->OperandRightConstant = parse_number(token.Value);
+            }
+            else if (token.Type == ttDataAlias)
+            {
+                param->OperandRight = vtConstantValue; 
+
+                uint32_t address;
+                std::string name = token.Value.substr(1, token.Value.length() - 1);
+                if (program->Data->GetAddressOfVariable(name, address))
+                {
+                    param->OperandRightConstant = address;
+                }
+                else
+                {
+                    throw ParserUndeclaredIdentifierException(name);
+                }
+            }
+            else if (token.Type == ttRegister)
+            {
+                param->OperandRight = vtRegister;
+                param->OperandRightRegister = ParseRegister(token.Value);
+            }
+            else
+            {
+                throw ParserUnexpectedTokenException(token, "register or constant value as right operand");
+            }
+
+            tokenizer->NextToken();
+            token = tokenizer->GetCurrentToken();
+
+            if (token.Type == ttAddressCloser)
+            {
+                // no right operand
+                programInstruction->Parameters.push_back(param);
+            }
+            else
+            {
+                throw ParserUnexpectedTokenException(token);
+            }
+        }
+        else
+        {
+            throw ParserUnexpectedTokenException(token, "register or constant value as left operand");
+        }
     }
 }
 
