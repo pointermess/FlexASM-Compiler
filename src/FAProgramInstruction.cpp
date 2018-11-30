@@ -10,11 +10,11 @@ std::vector<char> FlexASM::ProgramInstructionConstIntParameter::GetOpcode()
 
 
     if (opSize == msByte)
-        return { 0, (char)Value };
+        return { (char)opSize, (char)Value };
     if (opSize == msWord)
-        return { 1, (char)(Value >> 8), (char)Value };
+        return { (char)opSize, (char)(Value >> 8), (char)Value };
     if (opSize == msDWord)
-        return { 2, (char)(Value >> 24), (char)(Value >> 16), (char)(Value >> 8), (char)Value };
+        return { (char)opSize, (char)(Value >> 24), (char)(Value >> 16), (char)(Value >> 8), (char)Value };
 }
 
 std::string FlexASM::ProgramInstructionConstIntParameter::GetPattern()
