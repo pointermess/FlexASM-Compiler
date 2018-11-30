@@ -1,4 +1,4 @@
-# FlexApplication Excutable Binary Structure
+# FlexApplication Excutable Binary Structure (Format Version 0x00)
 
 This document describes the most recent version (FlexAssembler Compiler Version RC2) structure of a FlexApplication Binary Executable file.
 
@@ -8,11 +8,11 @@ The FlexApplication Executable Binary consists of a very small header followed b
 
 ## Header
 
-The header gives the operating system / virtual machine informations about the executable file. As of this version only the section sizes are specifed but in the future it will contain resources aswell as linked code.
+The header gives the operating system / virtual machine informations about the executable file. As of this version only the section sizes are specifed but in the future it will contain resources aswell as entries to shared code.
 
 #### FileType Information
 
-To specify a FlexApplication Binary it is required to add 5 bytes to the beginning of the file. The first 3 bytes consist of the ASCII chars ``FAE`` which stands for "FlexApplication Executable"which are followed by two zero-bytes ``0x00 0x00``.
+To specify a FlexApplication Binary it is required to add 5 bytes to the beginning of the file. The first 3 bytes consist of the ASCII chars ``FAE`` which stands for "FlexApplication Executable" which are followed by two zero-bytes ``0x00 0x00``, where the second zero-byte stands for the FlexApplication Executable format version. 
 
 #### Section Informations
 
