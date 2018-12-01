@@ -1,5 +1,5 @@
-# FlexAssembler-Compiler-RC2
-This repository contains the new FlexAssembler compiler which is open source and written in modern C++.
+# FlexASM Compiler
+This repository contains the new FlexASM compiler which is open source and written in modern C++.
 
 The reasons for the complete rewrite are following:
 - To provide an open source assembler written in modern C++.
