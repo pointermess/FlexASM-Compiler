@@ -98,48 +98,53 @@ void FlexASM::InitValidInstructions()
     ValidInstructions.push_back({ "mov_addr_const", faiMOV_ADDR_CONST });
     ValidInstructions.push_back({ "mov_addr_reg", faiMOV_ADDR_REG });
     ValidInstructions.push_back({ "mov_addr_addr", faiMOV_ADDR_ADDR });
+
     ValidInstructions.push_back({ "push_const", faiPUSH_CONST });
     ValidInstructions.push_back({ "push_reg", faiPUSH_REG });
     ValidInstructions.push_back({ "push_addr", faiPUSH_ADDR });
     ValidInstructions.push_back({ "pop_reg", faiPOP_REG });
-    ValidInstructions.push_back({ "jmp_label", faiJMP_LABEL });
+
+    ValidInstructions.push_back({ "jmp_const", faiJMP_LABEL });
     ValidInstructions.push_back({ "jmp_addr", faiJMP_ADDR });
-    ValidInstructions.push_back({ "jo_label", faiJO_LABEL });
+    ValidInstructions.push_back({ "jo_const", faiJO_LABEL });
     ValidInstructions.push_back({ "jo_addr", faiJO_ADDR });
-    ValidInstructions.push_back({ "jno_label", faiJNO_LABEL });
+    ValidInstructions.push_back({ "jno_const", faiJNO_LABEL });
     ValidInstructions.push_back({ "jno_addr", faiJNO_ADDR });
-    ValidInstructions.push_back({ "js_label", faiJS_LABEL });
+    ValidInstructions.push_back({ "js_const", faiJS_LABEL });
     ValidInstructions.push_back({ "js_addr", faiJS_ADDR });
-    ValidInstructions.push_back({ "jns_label", faiJNS_LABEL });
+    ValidInstructions.push_back({ "jns_const", faiJNS_LABEL });
     ValidInstructions.push_back({ "jns_addr", faiJNS_ADDR });
-    ValidInstructions.push_back({ "je_label", faiJE_LABEL });
+    ValidInstructions.push_back({ "je_const", faiJE_LABEL });
     ValidInstructions.push_back({ "je_addr", faiJE_ADDR });
-    ValidInstructions.push_back({ "jne_label", faiJNE_LABEL });
+    ValidInstructions.push_back({ "jne_const", faiJNE_LABEL });
     ValidInstructions.push_back({ "jne_addr", faiJNE_ADDR });
-    ValidInstructions.push_back({ "jb_label", faiJB_LABEL });
+    ValidInstructions.push_back({ "jb_const", faiJB_LABEL });
     ValidInstructions.push_back({ "jb_addr", faiJB_ADDR });
-    ValidInstructions.push_back({ "jbe_label", faiJBE_LABEL });
+    ValidInstructions.push_back({ "jbe_const", faiJBE_LABEL });
     ValidInstructions.push_back({ "jbe_addr", faiJBE_ADDR });
-    ValidInstructions.push_back({ "ja_label", faiJA_LABEL });
+    ValidInstructions.push_back({ "ja_const", faiJA_LABEL });
     ValidInstructions.push_back({ "ja_addr", faiJA_ADDR });
-    ValidInstructions.push_back({ "jae_label", faiJAE_LABEL });
+    ValidInstructions.push_back({ "jae_const", faiJAE_LABEL });
     ValidInstructions.push_back({ "jae_addr", faiJAE_ADDR });
-    ValidInstructions.push_back({ "jl_label", faiJL_LABEL });
+    ValidInstructions.push_back({ "jl_const", faiJL_LABEL });
     ValidInstructions.push_back({ "jl_addr", faiJL_ADDR });
-    ValidInstructions.push_back({ "jle_label", faiJLE_LABEL });
+    ValidInstructions.push_back({ "jle_const", faiJLE_LABEL });
     ValidInstructions.push_back({ "jle_addr", faiJLE_ADDR });
-    ValidInstructions.push_back({ "jg_label", faiJG_LABEL });
+    ValidInstructions.push_back({ "jg_const", faiJG_LABEL });
     ValidInstructions.push_back({ "jg_addr", faiJG_ADDR });
-    ValidInstructions.push_back({ "jge_label", faiJGE_LABEL });
+    ValidInstructions.push_back({ "jge_const", faiJGE_LABEL });
     ValidInstructions.push_back({ "jge_addr", faiJGE_ADDR });
-    ValidInstructions.push_back({ "jp_label", faiJP_LABEL });
+    ValidInstructions.push_back({ "jp_const", faiJP_LABEL });
     ValidInstructions.push_back({ "jp_addr", faiJP_ADDR });
-    ValidInstructions.push_back({ "jnp_label", faiJNP_LABEL });
+    ValidInstructions.push_back({ "jnp_const", faiJNP_LABEL });
     ValidInstructions.push_back({ "jnp_addr", faiJNP_ADDR });
-    ValidInstructions.push_back({ "call_label", faiCALL_LABEL });
+
+    ValidInstructions.push_back({ "call_const", faiCALL_LABEL });
     ValidInstructions.push_back({ "call_addr", faiCALL_ADDR });
     ValidInstructions.push_back({ "ret", faiRET });
+
     ValidInstructions.push_back({ "int_const", faiINT_CONST });
+
     ValidInstructions.push_back({ "add_reg_const", faiADD_REG_CONST });
     ValidInstructions.push_back({ "add_reg_reg", faiADD_REG_REG });
     ValidInstructions.push_back({ "sub_reg_const", faiSUB_REG_CONST });
@@ -156,8 +161,10 @@ void FlexASM::InitValidInstructions()
     ValidInstructions.push_back({ "imul_reg_reg", faiIMUL_REG_REG });
     ValidInstructions.push_back({ "idiv_reg_const", faiIDIV_REG_CONST });
     ValidInstructions.push_back({ "idiv_reg_reg", faiIDIV_REG_REG });
+
     ValidInstructions.push_back({ "cmp_reg_const", faiCMP_REG_CONST });
     ValidInstructions.push_back({ "cmp_reg_reg", faiCMP_REG_REG });
+
     ValidInstructions.push_back({ "dbg_reg", faiDBG_REG });
     ValidInstructions.push_back({ "dbg_addr", faiDBG_ADDR });
 
@@ -166,6 +173,7 @@ void FlexASM::InitValidInstructions()
     ValidPseudoInstructions.push_back({ "db", fapiDB });
     ValidPseudoInstructions.push_back({ "dw", fapiDW });
     ValidPseudoInstructions.push_back({ "dd", fapiDD });
+
     ValidPseudoInstructions.push_back({ "resb", fapiRESB });
     ValidPseudoInstructions.push_back({ "resw", fapiRESW });
     ValidPseudoInstructions.push_back({ "resd", fapiRESD });
