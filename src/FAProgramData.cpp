@@ -24,6 +24,11 @@ std::vector<char> FlexASM::ProgramData::GetOpcode()
     return result;
 }
 
+int FlexASM::ProgramData::GetSize()
+{
+    return GetOpcode().size();
+}
+
 
 uint32_t FlexASM::ProgramDataVariable::GetLength()
 {

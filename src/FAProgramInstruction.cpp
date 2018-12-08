@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "FAProgramInstruction.h"
+#include "FAProgram.h"
 
 std::vector<char> FlexASM::ProgramInstructionConstIntParameter::GetOpcode()
 {
@@ -22,7 +23,7 @@ std::string FlexASM::ProgramInstructionConstIntParameter::GetPattern()
     return "const";
 }
 
-std::vector<char> FlexASM::ProgramInstructionRegisterParameter::GetOpcode()
+std::vector<char> FlexASM:: ProgramInstructionRegisterParameter::GetOpcode()
 {
     MemorySize opSize = OperationSize;
 
@@ -35,6 +36,11 @@ std::vector<char> FlexASM::ProgramInstructionRegisterParameter::GetOpcode()
 std::string FlexASM::ProgramInstructionRegisterParameter::GetPattern()
 {
     return "reg";
+}
+
+int FlexASM::ProgramInstruction::GetSize()
+{
+    return GetOpcode().size();
 }
 
 std::vector<char> FlexASM::ProgramInstruction::GetOpcode()
@@ -73,7 +79,32 @@ std::vector<char> FlexASM::ProgramInstructionAddressParameter::GetOpcode()
 
     std::vector<char> result = { (char)opSize, infoByte };
 
-    // TODO: rest of it lel
+    if (OperandLeft == vtConstantValue)
+    {
+        result.push_back((char)(OperandLeftConstant >> 24));
+        result.push_back((char)(OperandLeftConstant >> 16));
+        result.push_back((char)(OperandLeftConstant >> 8));
+        result.push_back((char)(OperandLeftConstant));
+    } 
+    else if (OperandLeft == vtRegister)
+    {
+        result.push_back((char)(OperandLeftRegister));
+    }
+
+    if (OperandRight != vtUndefined)
+    {
+        if (OperandRight == vtConstantValue)
+        {
+            result.push_back((char)(OperandRightConstant >> 24));
+            result.push_back((char)(OperandRightConstant >> 16));
+            result.push_back((char)(OperandRightConstant >> 8));
+            result.push_back((char)(OperandRightConstant));
+        }
+        else if (OperandRight == vtRegister)
+        {
+            result.push_back((char)(OperandRightRegister));
+        }
+    }
 
     return result;
 }
@@ -81,4 +112,28 @@ std::vector<char> FlexASM::ProgramInstructionAddressParameter::GetOpcode()
 std::string FlexASM::ProgramInstructionAddressParameter::GetPattern()
 {
     return "addr";
+}
+
+int FlexASM::ProgramInstructionParameterInterface::GetSize()
+{
+    return GetOpcode().size();
+}
+
+
+std::vector<char> FlexASM::ProgramInstructionAliasParameter::GetOpcode()
+{
+    unsigned int addr;
+    if (LookupTable->Find(Alias, addr))
+    {
+        return { (char)4, (char)(addr >> 24), (char)(addr >> 16), (char)(addr >> 8), (char)addr };
+    }
+    else
+    {
+        return { 0,0,0,0,0 };
+    }
+}
+
+std::string FlexASM::ProgramInstructionAliasParameter::GetPattern()
+{
+    return "const";
 }

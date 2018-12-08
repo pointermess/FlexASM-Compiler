@@ -61,6 +61,7 @@ namespace FlexASM
         std::vector<ProgramDataVariableInterfacePtr> Variables;
         bool GetAddressOfVariable(const std::string name, uint32_t& address);
         std::vector<char> GetOpcode();
+        int GetSize();
     };
     typedef std::shared_ptr<ProgramData> ProgramDataPtr;
 

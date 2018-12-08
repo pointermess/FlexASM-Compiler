@@ -1,7 +1,10 @@
 #pragma once
 #include <vector>
+#include <map>
+#include <string>
 #include <memory>
 #include "FATypes.h"
+#include "FALookupTable.h"
 
 using namespace FlexASM;
 
@@ -13,6 +16,7 @@ namespace FlexASM
     public:
         MemorySize OperationSize;
         virtual std::vector<char> GetOpcode() = 0;
+        int GetSize();
         virtual std::string GetPattern() = 0;
     };
     typedef  std::shared_ptr<ProgramInstructionParameterInterface> ProgramInstructionParameterInterfacePtr;
@@ -26,10 +30,15 @@ namespace FlexASM
     };
     typedef std::shared_ptr< ProgramInstructionConstIntParameter> ProgramInstructionConstIntParameterPtr;
 
-    class ProgramInstructionConstStrParameter : public ProgramInstructionParameterInterface
+    class ProgramInstructionAliasParameter : public ProgramInstructionParameterInterface
     {
-
+    public:
+        LookupTablePtr LookupTable;
+        std::string Alias;
+        std::vector<char> GetOpcode() override;
+        std::string GetPattern();
     };
+    typedef std::shared_ptr<ProgramInstructionAliasParameter> ProgramInstructionAliasParameterPtr;
 
     class ProgramInstructionRegisterParameter : public ProgramInstructionParameterInterface
     {
@@ -68,6 +77,7 @@ namespace FlexASM
         std::vector<ProgramInstructionParameterInterfacePtr> Parameters;
 
         std::vector<char> GetOpcode();
+        int GetSize();
         const std::string BuildPattern();
     };
     typedef  std::shared_ptr<ProgramInstruction> ProgramInstructionPtr;
