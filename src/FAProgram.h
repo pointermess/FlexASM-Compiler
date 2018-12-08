@@ -2,10 +2,12 @@
 
 #include <string>
 #include <vector>
+#include <map>
 #include <memory>
 
 #include "FAProgramCode.h"
 #include "FAProgramData.h"
+#include "FALookupTable.h"
 
 namespace FlexASM
 {
@@ -13,8 +15,11 @@ namespace FlexASM
     {
     private:
     public:
+        LookupTablePtr LookupTable;
+
         ProgramCodePtr Code;
         ProgramDataPtr Data;
+
 
         Program();
         ~Program();
