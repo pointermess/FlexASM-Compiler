@@ -12,6 +12,7 @@ namespace FlexASM
     {
     private:
         void Parse(TokenizerPtr tokenizer, ProgramPtr program);
+        void PopulateLookupTable(ProgramPtr program);
 
         void ParseSection(TokenizerPtr tokenizer, ProgramPtr program);
 
@@ -27,6 +28,10 @@ namespace FlexASM
         void ParseTextSectionSectionItemRegister(TokenizerPtr tokenizer, ProgramPtr program,
             ProgramInstructionPtr programInstruction);
         void ParseTextSectionSectionItemAddress(TokenizerPtr tokenizer, ProgramPtr program,
+            ProgramInstructionPtr programInstruction);
+        void ParseTextSectionSectionItemDataAlias(TokenizerPtr tokenizer, ProgramPtr program,
+            ProgramInstructionPtr programInstruction);
+        void ParseTextSectionSectionItemLabelAlias(TokenizerPtr tokenizer, ProgramPtr program,
             ProgramInstructionPtr programInstruction);
 
 

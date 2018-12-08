@@ -37,6 +37,25 @@ void Parser::Parse(TokenizerPtr tokenizer, ProgramPtr program)
     }
 }
 
+void FlexASM::Parser::PopulateLookupTable(ProgramPtr program)
+{
+    unsigned int addr = 0;
+
+    for (auto& dataVariable : program->Data->Variables)
+    {
+        program->LookupTable->Add("." + dataVariable->Name, addr);
+        addr += dataVariable->GetLength();
+    }
+
+    addr = 5 + 8 + program->Data->GetSize();
+
+    for (auto& textSection : program->Code->Sections)
+    {
+        program->LookupTable->Add("@" + textSection->Name, addr);
+        addr += textSection->GetSize();
+    }
+}
+
 void Parser::ParseSection(TokenizerPtr tokenizer, ProgramPtr program)
 {
     Token token = tokenizer->GetCurrentToken();
@@ -309,7 +328,7 @@ void FlexASM::Parser::ParseTextSectionSectionItem(TokenizerPtr tokenizer, Progra
                 if (checkTokenType == ttSize)
                     checkTokenType = tokenizer->GetNextToken().Type;
 
-                if (checkTokenType == ttConstDec || checkTokenType == ttConstHex || checkTokenType == ttDataAlias)
+                if (checkTokenType == ttConstDec || checkTokenType == ttConstHex)
                 {
                     ParseTextSectionSectionItemConst(tokenizer, program, instruction);
                 }
@@ -320,6 +339,14 @@ void FlexASM::Parser::ParseTextSectionSectionItem(TokenizerPtr tokenizer, Progra
                 else if (checkTokenType == ttAddressOpener)
                 {
                     ParseTextSectionSectionItemAddress(tokenizer, program, instruction);
+                }
+                else if (token.Type == ttLabelAlias)
+                {
+                    ParseTextSectionSectionItemLabelAlias(tokenizer, program, instruction);
+                }
+                else if (token.Type == ttDataAlias)
+                {
+                    ParseTextSectionSectionItemDataAlias(tokenizer, program, instruction);
                 }
                 else
                 {
@@ -515,6 +542,34 @@ void FlexASM::Parser::ParseTextSectionSectionItemAddress(TokenizerPtr tokenizer,
     }
 }
 
+void FlexASM::Parser::ParseTextSectionSectionItemDataAlias(TokenizerPtr tokenizer, ProgramPtr program, ProgramInstructionPtr programInstruction)
+{
+    Token token = tokenizer->GetCurrentToken();
+    ProgramInstructionAliasParameterPtr param = std::make_shared<ProgramInstructionAliasParameter>();
+
+
+    if (token.Type == ttDataAlias)
+    {
+        param->Alias = token.Value;
+        param->LookupTable = program->LookupTable;
+        programInstruction->Parameters.push_back(param);
+    }
+}
+
+void FlexASM::Parser::ParseTextSectionSectionItemLabelAlias(TokenizerPtr tokenizer, ProgramPtr program, ProgramInstructionPtr programInstruction)
+{
+    Token token = tokenizer->GetCurrentToken();
+    ProgramInstructionAliasParameterPtr param = std::make_shared<ProgramInstructionAliasParameter>();
+
+
+    if (token.Type == ttLabelAlias)
+    {
+        param->Alias = token.Value;
+        param->LookupTable = program->LookupTable;
+        programInstruction->Parameters.push_back(param);
+    }
+}
+
 
 
 Parser::Parser()
@@ -560,6 +615,7 @@ ProgramPtr Parser::ParseFile(const std::string filePath)
         std::cout << e.GetMessage() << std::endl;
         return nullptr;
     }
+    PopulateLookupTable(result);
 
     return result;
 }
