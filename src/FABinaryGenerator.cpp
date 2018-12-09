@@ -38,3 +38,15 @@ const std::vector<char> FlexASM::FABinaryGenerator::CreateBinaryStream(ProgramPt
 
     return result;
 }
+
+void FlexASM::FABinaryGenerator::SaveToFile(ProgramPtr program, const std::string filePath)
+{
+    const std::vector<char> stream = this->CreateBinaryStream(program);
+
+
+    std::ofstream writeFile;
+    writeFile.open(filePath, std::ios::out | std::ios::binary);
+    writeFile.flush();
+    writeFile.write(&stream[0], stream.size());
+    writeFile.close();
+}
