@@ -30,14 +30,7 @@ void ParseAndGenerate(std::string inputPath, std::string outputPath)
     if (program != nullptr)
     {
         auto generator = std::make_shared<FABinaryGenerator>();
-        const std::vector<char> stream = generator->CreateBinaryStream(program);
-
-
-        std::ofstream writeFile;
-        writeFile.open(outputPath, std::ios::out);
-        writeFile.flush();
-        writeFile.write(&stream[0], stream.size());
-        writeFile.close();
+        generator->SaveToFile(program, outputPath);
     }
 }
 
@@ -51,6 +44,8 @@ int main(int argc, char *argv[])
 
     if (argc < 2)
     {
+        ParseAndGenerate("C:/Users/ID-Systems Dev 01/Desktop/FlexASM Compiler/Debug/jmp.txt", "C:/Users/ID-Systems Dev 01/Desktop/FlexASM Compiler/Debug/jmp.bin");
+
         std::filesystem::path binName = argv[0];
 
         std::cout << "Following run parameters are supported:" << std::endl;
