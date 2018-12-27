@@ -1,4 +1,4 @@
-# FlexApplication Excutable Format (Version 0x00)
+# FlexApplication Excutable Format (Version 0x01)
 
 This document describes the most recent version (FlexAssembler Compiler Version RC2) structure of a FlexApplication Binary Executable file.
 
@@ -18,9 +18,11 @@ To specify a FlexApplication Binary it is required to add 5 bytes to the beginni
 
 After the FileType Information the Header contains informations about its sections. As of this version only the sizes are specified as four bytes each.
 
+Note that the header informations also get a section. This section is currently unused but the header information section size is still specified to retain backwards compatability in the future. This means that a header, excluding the header informations, will always be 17 bytes.
+
 ### Example Header
 
- ``0x46 0x41 0x45 0x00 0x00 0x00 0x00 0x00 0x12 0x00 0x00 0x00 0xFA``
+ ``0x46 0x41 0x45 0x00 0x01 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x12 0x00 0x00 0x00 0xFA``
 
 ## Data Section
 
