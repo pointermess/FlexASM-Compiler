@@ -116,14 +116,30 @@ In the following chapter we will look at the instruction set.
 
 Moves data from one place to an other.
 
-|  Syntax: |
-|   ---   |
-| mov \<reg\>, \<con\> |
-| mov \<reg\>, \<reg\> |
-| mov \<reg\>, \<mem\> |
-| mov \<mem\>, \<con\> |
-| mov \<mem\>, \<reg\> |
-| mov \<mem\>, \<mem\> |
+|  Syntax | Opcode |
+|   ---   |  ---   | 
+| mov \<reg\>, \<con\> | 0xA0 |
+| mov \<reg\>, \<reg\> | 0xA1 |
+| mov \<reg\>, \<mem\> | 0xA2 |
+| mov \<mem\>, \<con\> | 0xA3 |
+| mov \<mem\>, \<reg\> | 0xA4 |
+| mov \<mem\>, \<mem\> | 0xA5 |
+
+#### PUSH - Push Instruction
+Pushes data on top of the stack.
+
+|  Syntax | Opcode |
+|   ---   |  ---   | 
+| push \<const\> | 0xAC |
+| push \<reg\> | 0xAD |
+| push \<addr\> | 0xAE |
+
+#### POP - Pop Instruction
+Pops the top of the stack to a register.
+
+|  Syntax | Opcode |
+|   ---   |  ---   | 
+| pop \<reg\> | 0xAF |
 
 ### Arithmetic operations
 ### Binary operations
