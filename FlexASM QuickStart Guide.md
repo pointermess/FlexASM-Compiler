@@ -115,6 +115,7 @@ In the following chapter we will look at the instruction set.
 #### MOV - Move Instruction
 
 Moves data from one place to an other.
+The first argument is the destination and the second is the source location/value.
 
 |  Syntax | Opcode |
 |   ---   |  ---   | 
