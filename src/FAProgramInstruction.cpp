@@ -30,7 +30,7 @@ std::vector<char> FlexASM:: ProgramInstructionRegisterParameter::GetOpcode()
     if (opSize == msUndefined)
         opSize = msDWord;
 
-    return { (char)Value };
+    return { (char)opSize, (char)Value };
 }
 
 std::string FlexASM::ProgramInstructionRegisterParameter::GetPattern()
