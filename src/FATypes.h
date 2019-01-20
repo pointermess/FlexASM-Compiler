@@ -51,21 +51,21 @@ namespace FlexASM {
 
         // Move instructions (0xA0 - 0xA5)
         // Move instructions (0xA0 - 0xA5)
-        faiMOV_REG_CONST = 0xa0, // Move instructions (0xA0 - 0xA5)
-        faiMOV_REG_REG = 0xa1, // Move instructions (0xA0 - 0xA5)
-        faiMOV_REG_ADDR = 0xa2, // Move instructions (0xA0 - 0xA5)
-        faiMOV_ADDR_CONST = 0xa3, // Move instructions (0xA0 - 0xA5)
-        faiMOV_ADDR_REG = 0xa4, // Move instructions (0xA0 - 0xA5)
-        faiMOV_ADDR_ADDR = 0xa5,
+        faiMOV_REG_CONST  = 0xA0, // Move instructions (0xA0 - 0xA5)
+        faiMOV_REG_REG    = 0xA1, // Move instructions (0xA0 - 0xA5)
+        faiMOV_REG_ADDR   = 0xA2, // Move instructions (0xA0 - 0xA5)
+        faiMOV_ADDR_CONST = 0xA3, // Move instructions (0xA0 - 0xA5)
+        faiMOV_ADDR_REG   = 0xA4, // Move instructions (0xA0 - 0xA5)
+        faiMOV_ADDR_ADDR  = 0xA5,
 
         // Stack instructions (0xAC - 0xAF)
-        faiPUSH_CONST = 0xac,
-        faiPUSH_REG = 0xad,
-        faiPUSH_ADDR = 0xae,
-        faiPOP_REG = 0xaf,
+        faiPUSH_CONST    = 0xAC,
+        faiPUSH_REG      = 0xAD,
+        faiPUSH_ADDR     = 0xAE,
+        faiPOP_REG       = 0xAF,
 
         // Flowcontrol instructions (0x70 - 0x94)
-        faiJMP_LABEL = 0x70,
+        faiJMP_LABEL     = 0x70,
         faiJMP_ADDR = 0x71,
         faiJO_LABEL = 0x72,
         faiJO_ADDR = 0x73,
@@ -120,7 +120,7 @@ namespace FlexASM {
 
         // signed
         faiIADD_REG_CONST = 0xE8,
-        faiIADD_REG_REG = 0xE9,
+        faiIADD_REG_REG   = 0xE9,
         faiISUB_REG_CONST = 0xEA,
         faiISUB_REG_REG = 0xEB,
         faiIMUL_REG_CONST = 0xEC,
