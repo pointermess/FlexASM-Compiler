@@ -16,6 +16,10 @@ const std::vector<char> FlexASM::FABinaryGenerator::CreateBinaryStream(ProgramPt
     // FileType Information
     std::vector<char> result = { 'F', 'A', 'E', 0, 0 };
 
+    // Header Section
+    std::vector<char> headerSection = { 0, 0, 0, 0 };
+    result.insert(result.end(), headerSection.begin(), headerSection.end());
+
     // Get Data and Text Section Opcodes
     std::vector<char> dataSection = program->Data->GetOpcode();
     std::vector<char> textSection = program->Code->GetOpcode();
