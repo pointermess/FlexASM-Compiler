@@ -24,6 +24,14 @@ std::string read_file(std::string fileName)
     return result;
 }
 
+unsigned stou(std::string const & str, size_t * idx = 0, int base = 10) {
+    unsigned long result = std::stoul(str, idx, base);
+    if (result > std::numeric_limits<unsigned>::max()) {
+        throw std::out_of_range("stou");
+    }
+    return result;
+}
+
 uint32_t parse_number(std::string number)
 {
     if (number.length() > 2)
@@ -34,11 +42,11 @@ uint32_t parse_number(std::string number)
         value.assign(number, 2, number.length() - 2);
 
         if (prefix == "0x")
-            return std::stoi(value, nullptr, 16);
+            return stou(value, nullptr, 16);
         if (prefix == "0o")
-            return std::stoi(value, nullptr, 8);
+            return stou(value, nullptr, 8);
         if (prefix == "0b")
-            return std::stoi(value, nullptr, 2);
+            return stou(value, nullptr, 2);
     }
     return std::stoi(number);
 }
