@@ -7,6 +7,8 @@ The reasons for the complete rewrite are following:
 - To use the things I learned from writing the first (two) version(s).
 - And most important, to learn modern C++.
 
+It takes in the FlexASM assembly dialect and generates an executable binary file which can be run using the Flex Runtime Environment.
+
 ### How to run?
 
 ``flasm.exe INPUT_FILE_PATH``
