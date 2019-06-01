@@ -3,7 +3,7 @@
 
 bool FlexASM::ProgramData::GetAddressOfVariable(const std::string name, uint32_t& address)
 {
-    address = 0;
+    address = 33;
     for (auto& variable : Variables)
     {
         if (variable->Name == name)

@@ -12,9 +12,9 @@ namespace FlexASM
         Preprocessor();
         ~Preprocessor();
 
-        std::string RemoveComments(std::string input);
-        std::string IncludeFiles(std::string input, std::string filePath);
-        std::string Preprocess(std::string fileName);
+        const std::string RemoveComments( std::string input);
+        const std::string IncludeFiles(const std::string input, const std::string filePath);
+        const std::string Preprocess(const std::string fileName);
     };
 
 }

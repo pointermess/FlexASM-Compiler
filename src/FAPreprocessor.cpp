@@ -21,7 +21,7 @@ FlexASM::Preprocessor::~Preprocessor()
 {
 }
 
-std::string FlexASM::Preprocessor::RemoveComments(std::string input)
+const std::string FlexASM::Preprocessor::RemoveComments(std::string input)
 {
     std::string result = "";
 
@@ -62,7 +62,7 @@ std::string FlexASM::Preprocessor::RemoveComments(std::string input)
     return result;
 }
 
-std::string FlexASM::Preprocessor::IncludeFiles(std::string input, std::string filePath)
+const std::string FlexASM::Preprocessor::IncludeFiles(const std::string input, const std::string filePath)
 {
     return std::string();
 }
@@ -70,7 +70,7 @@ std::string FlexASM::Preprocessor::IncludeFiles(std::string input, std::string f
 
 ///
 
-std::string FlexASM::Preprocessor::Preprocess(std::string fileName)
+const std::string FlexASM::Preprocessor::Preprocess(const std::string fileName)
 {
     // prepare result
     std::string result = "";

@@ -8,7 +8,7 @@
 
 using namespace FlexASM;
 
-FATokenType FlexASM::Token::GetType(std::string TokenValue)
+FATokenType FlexASM::Token::GetType(const std::string TokenValue)
 {
     std::string token = TokenValue;
 

@@ -33,7 +33,7 @@ namespace FlexASM
         unsigned int Line;
         FATokenType Type;
 
-        static FATokenType GetType(std::string TokenValue);
+        static FATokenType GetType(const std::string TokenValue);
     };
 
 }
