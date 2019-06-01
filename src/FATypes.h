@@ -50,13 +50,16 @@ namespace FlexASM {
         faiUnknown = 0,
 
         // Move instructions (0xA0 - 0xA5)
-        // Move instructions (0xA0 - 0xA5)
         faiMOV_REG_CONST  = 0xA0, // Move instructions (0xA0 - 0xA5)
         faiMOV_REG_REG    = 0xA1, // Move instructions (0xA0 - 0xA5)
         faiMOV_REG_ADDR   = 0xA2, // Move instructions (0xA0 - 0xA5)
         faiMOV_ADDR_CONST = 0xA3, // Move instructions (0xA0 - 0xA5)
         faiMOV_ADDR_REG   = 0xA4, // Move instructions (0xA0 - 0xA5)
-        faiMOV_ADDR_ADDR  = 0xA5,
+        faiMOV_ADDR_ADDR = 0xA5,
+
+
+        // Load effective address (0xA8)
+        faiLEA_REG_ADDR = 0xA8,
 
         // Stack instructions (0xAC - 0xAF)
         faiPUSH_CONST    = 0xAC,

@@ -99,6 +99,8 @@ void FlexASM::InitValidInstructions()
     ValidInstructions.push_back({ "mov_addr_reg", faiMOV_ADDR_REG });
     ValidInstructions.push_back({ "mov_addr_addr", faiMOV_ADDR_ADDR });
 
+    ValidInstructions.push_back({ "lea_reg_addr", faiLEA_REG_ADDR });
+
     ValidInstructions.push_back({ "push_const", faiPUSH_CONST });
     ValidInstructions.push_back({ "push_reg", faiPUSH_REG });
     ValidInstructions.push_back({ "push_addr", faiPUSH_ADDR });
