@@ -39,7 +39,7 @@ void Parser::Parse(TokenizerPtr tokenizer, ProgramPtr program)
 
 void FlexASM::Parser::PopulateLookupTable(ProgramPtr program)
 {
-    unsigned int addr = 0;
+    unsigned int addr = 33;
 
     for (auto& dataVariable : program->Data->Variables)
     {
@@ -47,7 +47,7 @@ void FlexASM::Parser::PopulateLookupTable(ProgramPtr program)
         addr += dataVariable->GetLength();
     }
 
-    addr = 5 + 8 + program->Data->GetSize();
+    addr = 5 + 12 + program->Data->GetSize();
 
     for (auto& textSection : program->Code->Sections)
     {
@@ -151,9 +151,9 @@ void FlexASM::Parser::ParseDataSectionItem(TokenizerPtr tokenizer, ProgramPtr pr
                         tokenizer->NextToken();
                         token = tokenizer->GetCurrentToken();
 
-                        if (token.Type == ttConstDec)
+                        if (token.Type == ttConstDec || token.Type == ttConstHex)
                         {
-                            int tokenValue = std::stoi(token.Value);
+                            int tokenValue = parse_number(token.Value);
 
                             if (tokenValue != 0)
                             {
