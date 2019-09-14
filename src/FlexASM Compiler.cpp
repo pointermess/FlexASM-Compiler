@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 
     if (argc < 2)
     {
-        ParseAndGenerate("C:/Users/ID-Systems Dev 01/Desktop/FlexASM Compiler/Debug/jmp.txt", "C:/Users/ID-Systems Dev 01/Desktop/FlexASM Compiler/Debug/jmp.bin");
+        ParseAndGenerate("C:/Users/Milos/Desktop/FlexASM Compiler/Debug/pctest.txt", "C:/Users/Milos/Desktop/FlexASM Compiler/Debug/pctest.fae");
 
         std::filesystem::path binName = argv[0];
 
@@ -84,6 +84,6 @@ int main(int argc, char *argv[])
             std::cout << "Created binary at " << outputPath << std::endl;
         }
     }
-
+    getchar();
     return 0;
 }
