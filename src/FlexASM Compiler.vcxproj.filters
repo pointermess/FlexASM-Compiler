@@ -69,6 +69,9 @@
     <ClInclude Include="FABinaryGenerator.h">
       <Filter>Headerdateien\Generator</Filter>
     </ClInclude>
+    <ClInclude Include="FALookupTable.h">
+      <Filter>Headerdateien</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="FlexASM Compiler.cpp">
@@ -111,6 +114,9 @@
       <Filter>Quelldateien</Filter>
     </ClCompile>
     <ClCompile Include="FABinaryGenerator.cpp">
+      <Filter>Quelldateien</Filter>
+    </ClCompile>
+    <ClCompile Include="FALookupTable.cpp">
       <Filter>Quelldateien</Filter>
     </ClCompile>
   </ItemGroup>
