@@ -1,7 +1,7 @@
 section .data
   xlimit: db 0x12
   ylimit: db 0x40
-  str: db 'Hello world from FlexASM'
+  str: db 'Hello world from FlexASM', 0
 
 section .text
 
