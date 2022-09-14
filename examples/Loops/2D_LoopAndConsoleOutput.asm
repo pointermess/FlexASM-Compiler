@@ -9,7 +9,6 @@ main:
   mov ecx, 0
   
 loop_x:
-  call @print_newline
   mov edx, 0
   
 loop_y:
@@ -23,9 +22,8 @@ loop_y:
   add ecx, 1
   mov eax, BYTE [.xlimit]
   cmp ecx, eax
-  jne @loop_x
-  
   call @print_newline
+  jne @loop_x
   jmp @exit
   
   
