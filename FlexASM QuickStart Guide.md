@@ -149,3 +149,77 @@ Pops the top of the stack to a register.
 ## System Calls
 ### System Utilities
 ### Graphics Output
+
+
+
+|  Syntax | Opcode |
+|   ---   |  ---   | 
+| mov \<reg\>, \<con\> | 0xA0 |
+| mov \<reg\>, \<reg\> | 0xA1 |
+| mov \<reg\>, \<mem\> | 0xA2 |
+| mov \<mem\>, \<con\> | 0xA3 |
+| mov \<mem\>, \<reg\> | 0xA4 |
+| mov \<mem\>, \<mem\> | 0xA5 |
+| lea \<reg\>, \<mem\> | 0xA8 |
+| push \<con\> | 0xAC |
+| push \<reg\> | 0xAD |
+| push \<mem\> | 0xAE |
+| pop \<reg\> | 0xAF |
+| jmp \<label\> | 0x70 |
+| jmp \<addr\> | 0x71 |
+| jo \<label\> | 0x72 |
+| jo \<addr\> | 0x73 |
+| jno \<label\> | 0x74 |
+| jno \<addr\> | 0x75 |
+| js \<label\> | 0x76 |
+| js \<addr\> | 0x77 |
+| jns \<label\> | 0x78 |
+| jns \<addr\> | 0x79 |
+| je \<label\> | 0x7a |
+| je \<addr\> | 0x7b |
+| jne \<label\> | 0x7c |
+| jne \<addr\> | 0x7d |
+| jb \<label\> | 0x7e |
+| jb \<addr\> | 0x7f |
+| jbe \<label\> | 0x80 |
+| jbe \<addr\> | 0x81 |
+| ja \<label\> | 0x82 |
+| ja \<addr\> | 0x83 |
+| jae \<label\> | 0x84 |
+| jae \<addr\> | 0x85 |
+| jl \<label\> | 0x86 |
+| jl \<addr\> | 0x87 |
+| jle \<label\> | 0x88 |
+| jle \<addr\> | 0x89 |
+| jg \<label\> | 0x8a |
+| jg \<addr\> | 0x8b |
+| jge \<label\> | 0x8c |
+| jge \<addr\> | 0x8d |
+| jp \<label\> | 0x8e |
+| jp \<addr\> | 0x8f |
+| jnp \<label\> | 0x90 |
+| jnp \<addr\> | 0x91 |
+| call \<label\> | 0x92 |
+| call \<addr\> | 0x93 |
+| ret | 0x94 |
+| int \<con\> | 0x98 |
+| add \<reg\>, \<con\> | 0xE0 |
+| add \<reg\>, \<reg\> | 0xE1 |
+| sub \<reg\>, \<con\> | 0xE2 |
+| sub \<reg\>, \<reg\> | 0xE3 |
+| mul \<reg\>, \<con\> | 0xE4 |
+| mul \<reg\>, \<reg\> | 0xE5 |
+    | div \<reg\>, \<con\> | 0xE6 |
+    | div \<reg\>, \<reg\> | 0xE7 |
+    | iadd \<reg\>, \<con\> | 0xE8 |
+    | iadd \<reg\>, \<reg\> | 0xE9 |
+    | isub \<reg\>, \<con\> | 0xEA |
+    | isub \<reg\>, \<reg\> | 0xEB |
+    | imul \<reg\>, \<con\> | 0xEC |
+    | imul \<reg\>, \<reg\> | 0xED |
+    | idiv \<reg\>, \<con\> | 0xEE |
+    | idiv \<reg\>, \<reg\> | 0xEF |
+    | cmp \<reg\>, \<con\> | 0xF0 |
+    | cmp \<reg\>, \<reg\> | 0xF1 |
+    | dbg \<reg\> | 0xFE |
+    | dbg \<mem\> | 0xFF |
